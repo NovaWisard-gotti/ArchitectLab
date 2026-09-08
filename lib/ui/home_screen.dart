@@ -82,13 +82,13 @@ class _Header extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
+                  children: const [
+                    Text(
                       'Database Architect Lab',
                       style: TextStyle(
                           fontSize: 24, fontWeight: FontWeight.w700, height: 1.1),
                     ),
-                    const SizedBox(height: 6),
+                    SizedBox(height: 6),
                     Text(
                       'Disena, descompon y consulta. Cada ejercicio se corrige '
                       'contra la estructura, no contra un texto.',

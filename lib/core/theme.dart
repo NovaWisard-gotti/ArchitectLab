@@ -38,7 +38,7 @@ class AppTheme {
         elevation: 0,
         centerTitle: false,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: Blueprint.surface,
         elevation: 0,
         shape: RoundedRectangleBorder(
@@ -98,7 +98,7 @@ class AppTheme {
         contentTextStyle: TextStyle(color: Blueprint.text),
         behavior: SnackBarBehavior.floating,
       ),
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: Blueprint.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
