@@ -499,9 +499,7 @@ class DesignAdvisor {
     };
     map.forEach((k, val) => v = v.replaceAll(k, val));
     v = v.replaceAll(RegExp(r'[^a-z0-9]'), '');
-    if (v.endsWith('es') && v.length > 4) {
-      v = v.substring(0, v.length - 2);
-    } else if (v.endsWith('s') && v.length > 3) {
+    if (v.endsWith('s') && v.length > 3) {
       v = v.substring(0, v.length - 1);
     }
     return v;

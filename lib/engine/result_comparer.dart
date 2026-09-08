@@ -114,11 +114,8 @@ class ResultComparer {
     return failures;
   }
 
-  static List<List<String>> _normalize(List<List<Object?>> rows) {
-    final out = rows.map(_normalizeRow).toList();
-    out.sort((x, y) => x.join('\u0001').compareTo(y.join('\u0001')));
-    return out;
-  }
+  static List<List<String>> _normalize(List<List<Object?>> rows) =>
+      rows.map(_normalizeRow).toList();
 
   static List<String> _normalizeRow(List<Object?> row) =>
       row.map(_normalizeValue).toList();
