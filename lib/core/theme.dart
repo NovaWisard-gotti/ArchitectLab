@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 
-/// Identidad visual: "blueprint de base de datos".
-/// Fondo de tinta azul-pizarra, superficies tipo ficha tecnica, dorado
+/// Identidad visual: "blueprint de base de datos", sobre papel claro.
+/// Fondo tipo papel de plano, superficies tipo ficha tecnica, dorado
 /// reservado exclusivamente para claves y acentos de correccion.
+/// Esta paleta es fija: no cambia con el modo claro/oscuro del sistema.
 class Blueprint {
-  static const ink = Color(0xFF0E1621);
-  static const surface = Color(0xFF16212E);
-  static const surfaceHigh = Color(0xFF1E2C3C);
-  static const line = Color(0xFF2C3E52);
-  static const teal = Color(0xFF2FB6A8);
-  static const key = Color(0xFFE0A64B);
-  static const link = Color(0xFF6FA8DC);
-  static const danger = Color(0xFFE2685E);
-  static const ok = Color(0xFF57C08A);
-  static const text = Color(0xFFE8EEF4);
-  static const muted = Color(0xFF94A6B8);
+  static const ink = Color(0xFFF2F5F9);
+  static const surface = Color(0xFFFFFFFF);
+  static const surfaceHigh = Color(0xFFE7ECF2);
+  static const line = Color(0xFFCBD5E0);
+  static const teal = Color(0xFF0F7A6C);
+  static const key = Color(0xFFA8660B);
+  static const link = Color(0xFF2A5DB0);
+  static const danger = Color(0xFFB03A2E);
+  static const ok = Color(0xFF1E8449);
+  static const text = Color(0xFF16212E);
+  static const muted = Color(0xFF57667A);
 
   static const mono = 'monospace';
 }
 
 class AppTheme {
   static ThemeData build() {
-    final base = ThemeData.dark(useMaterial3: true);
+    final base = ThemeData.light(useMaterial3: true);
     return base.copyWith(
       scaffoldBackgroundColor: Blueprint.ink,
       colorScheme: base.colorScheme.copyWith(
@@ -94,8 +95,8 @@ class AppTheme {
         displayColor: Blueprint.text,
       ),
       snackBarTheme: const SnackBarThemeData(
-        backgroundColor: Blueprint.surfaceHigh,
-        contentTextStyle: TextStyle(color: Blueprint.text),
+        backgroundColor: Blueprint.text,
+        contentTextStyle: TextStyle(color: Blueprint.ink),
         behavior: SnackBarBehavior.floating,
       ),
       dialogTheme: DialogThemeData(

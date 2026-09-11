@@ -27,4 +27,8 @@ fi
 
 echo "==> Resolviendo dependencias"
 flutter pub get
+
+echo "==> Generando icono de la app"
+dart run flutter_launcher_icons
+
 echo "==> Listo. Ahora puedes ejecutar: flutter build apk --release"
