@@ -1,27 +1,27 @@
 import '../models/activity.dart';
 
-/// Modulo 3 - SQL ejecutable sobre el esquema academico.
+/// Módulo 3 - SQL ejecutable sobre el esquema académico.
 final LabModule moduleSql = LabModule(
   id: 'm3',
   title: 'SQL',
   subtitle: 'Consultas ejecutadas de verdad',
   goal: 'Escribir consultas correctas sobre un esquema real y leer el error '
-      'del motor como informacion, no como castigo.',
+      'del motor como información, no como castigo.',
   activities: [
     SqlLabActivity(
       id: 'm3a1',
-      title: 'Consultas basicas',
+      title: 'Consultas básicas',
       summary: 'SELECT, WHERE, LIKE, DISTINCT y ORDER BY.',
       competencies: const [Competency.sql],
       minutes: 15,
       schemaName: 'universidad',
-      scenario: 'Trabajas con el sistema academico. Cada intento reconstruye '
-          'la base desde cero, asi que puedes experimentar sin miedo.',
+      scenario: 'Trabajas con el sistema académico. Cada intento reconstruye '
+          'la base desde cero, así que puedes experimentar sin miedo.',
       tasks: const [
         SqlTask(
           id: 'm3a1t1',
           prompt: 'Lista el codigo y el nombre de los estudiantes del ciclo 5, '
-              'ordenados alfabeticamente por nombre.',
+              'ordenados alfabéticamente por nombre.',
           solution:
               'SELECT codigo, nombre FROM estudiante WHERE ciclo = 5 '
               'ORDER BY nombre',
@@ -32,10 +32,10 @@ final LabModule moduleSql = LabModule(
         SqlTask(
           id: 'm3a1t2',
           prompt: 'Muestra el nombre y los creditos de los cursos que tienen '
-              'mas de 3 creditos.',
+              'más de 3 creditos.',
           solution: 'SELECT nombre, creditos FROM curso WHERE creditos > 3',
           mustContain: ['where'],
-          hint: 'Mas de 3 no incluye a 3.',
+          hint: 'Más de 3 no incluye a 3.',
         ),
         SqlTask(
           id: 'm3a1t3',
@@ -43,11 +43,11 @@ final LabModule moduleSql = LabModule(
               'la letra M.',
           solution: "SELECT nombre FROM estudiante WHERE nombre LIKE 'M%'",
           mustContain: ['like'],
-          hint: 'El comodin % representa cualquier cantidad de caracteres.',
+          hint: 'El comodín % representa cualquier cantidad de caracteres.',
         ),
         SqlTask(
           id: 'm3a1t4',
-          prompt: 'Muestra los periodos academicos registrados en matricula, '
+          prompt: 'Muestra los periodos académicos registrados en matricula, '
               'sin repetirlos.',
           solution: 'SELECT DISTINCT periodo FROM matricula',
           mustContain: ['distinct'],
@@ -58,11 +58,11 @@ final LabModule moduleSql = LabModule(
     SqlLabActivity(
       id: 'm3a2',
       title: 'Uniones y agrupamiento',
-      summary: 'JOIN, LEFT JOIN, GROUP BY y funciones de agregacion.',
+      summary: 'JOIN, LEFT JOIN, GROUP BY y funciones de agregación.',
       competencies: const [Competency.sql, Competency.management],
       minutes: 20,
       schemaName: 'universidad',
-      scenario: 'La oficina academica necesita reportes que cruzan varias '
+      scenario: 'La oficina académica necesita reportes que cruzan varias '
           'tablas. Usa alias de tabla para escribir menos y leer mejor.',
       tasks: const [
         SqlTask(
@@ -78,7 +78,7 @@ final LabModule moduleSql = LabModule(
         ),
         SqlTask(
           id: 'm3a2t2',
-          prompt: 'Cuenta cuantos estudiantes tiene cada carrera. Devuelve el '
+          prompt: 'Cuenta cuántos estudiantes tiene cada carrera. Devuelve el '
               'nombre de la carrera (alias carrera) y el total (alias total). '
               'Incluye solo carreras que tengan estudiantes.',
           solution: 'SELECT c.nombre AS carrera, COUNT(e.id) AS total '
@@ -97,13 +97,13 @@ final LabModule moduleSql = LabModule(
               'FROM curso cu JOIN matricula m ON m.curso_id = cu.id '
               'GROUP BY cu.codigo, cu.nombre',
           mustContain: ['avg(', 'group by'],
-          hint: 'Los cursos sin matriculas no deben aparecer: usa JOIN, no '
+          hint: 'Los cursos sin matrículas no deben aparecer: usa JOIN, no '
               'LEFT JOIN.',
           points: 2,
         ),
         SqlTask(
           id: 'm3a2t4',
-          prompt: 'Lista el nombre de las carreras que no tienen ningun '
+          prompt: 'Lista el nombre de las carreras que no tienen ningún '
               'estudiante registrado.',
           solution: 'SELECT c.nombre FROM carrera c '
               'LEFT JOIN estudiante e ON e.carrera_id = c.id '
@@ -118,7 +118,7 @@ final LabModule moduleSql = LabModule(
     SqlLabActivity(
       id: 'm3a3',
       title: 'Subconsultas y filtros de grupo',
-      summary: 'Diferencia practica entre WHERE y HAVING.',
+      summary: 'Diferencia práctica entre WHERE y HAVING.',
       competencies: const [Competency.sql],
       minutes: 18,
       schemaName: 'universidad',
@@ -132,8 +132,8 @@ final LabModule moduleSql = LabModule(
           solution: 'SELECT id, nota FROM matricula '
               'WHERE nota > (SELECT AVG(nota) FROM matricula)',
           mustContain: ['avg('],
-          hint: 'La subconsulta devuelve un unico valor y se puede usar '
-              'directamente en la comparacion.',
+          hint: 'La subconsulta devuelve un único valor y se puede usar '
+              'directamente en la comparación.',
           points: 2,
         ),
         SqlTask(
@@ -146,7 +146,7 @@ final LabModule moduleSql = LabModule(
           mustContain: ['having'],
           forbid: ['where avg'],
           hint: 'WHERE filtra filas antes de agrupar; HAVING filtra grupos '
-              'despues de agrupar.',
+              'después de agrupar.',
           points: 2,
         ),
         SqlTask(
@@ -165,18 +165,18 @@ final LabModule moduleSql = LabModule(
     ),
     SqlLabActivity(
       id: 'm3a4',
-      title: 'Definicion y manipulacion de datos',
+      title: 'Definición y manipulación de datos',
       summary: 'CREATE TABLE con restricciones, INSERT, UPDATE y DELETE.',
       competencies: const [Competency.sql, Competency.management],
       minutes: 20,
       schemaName: 'universidad',
-      scenario: 'Aqui no basta con devolver filas: se evalua el estado final '
-          'de la base despues de ejecutar tus sentencias.',
+      scenario: 'Aquí no basta con devolver filas: se evalúa el estado final '
+          'de la base después de ejecutar tus sentencias.',
       tasks: const [
         SqlTask(
           id: 'm3a4t1',
           prompt: 'Crea la tabla docente con id (clave primaria entera), '
-              'codigo (texto obligatorio y unico) y nombre (texto '
+              'codigo (texto obligatorio y único) y nombre (texto '
               'obligatorio). Luego registra a (1, D07, M. Palomino) y '
               '(2, D12, R. Cabrera).',
           solution: '''
@@ -197,7 +197,7 @@ INSERT INTO docente (id, codigo, nombre) VALUES
         ),
         SqlTask(
           id: 'm3a4t2',
-          prompt: 'Sube 2 puntos las notas de las matriculas del curso BD101 '
+          prompt: 'Sube 2 puntos las notas de las matrículas del curso BD101 '
               'en el periodo 2025-I, sin que ninguna nota supere 20.',
           solution: '''
 UPDATE matricula
@@ -212,7 +212,7 @@ WHERE periodo = '2025-I'
         ),
         SqlTask(
           id: 'm3a4t3',
-          prompt: 'Elimina todas las matriculas del periodo 2025-II que '
+          prompt: 'Elimina todas las matrículas del periodo 2025-II que '
               'pertenecen al estudiante con codigo S002.',
           solution: '''
 DELETE FROM matricula

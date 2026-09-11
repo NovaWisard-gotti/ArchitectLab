@@ -27,7 +27,7 @@ class ModuleScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Objetivo del modulo',
+                    const Text('Objetivo del módulo',
                         style: TextStyle(
                             fontSize: 13.5, fontWeight: FontWeight.w600)),
                     const SizedBox(height: 6),

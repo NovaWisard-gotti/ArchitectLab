@@ -34,7 +34,7 @@ class ProgressScreen extends StatelessWidget {
             children: [
               const SectionTitle('Competencias del curso'),
               const Text(
-                'Cada actividad aporta a una o mas competencias. El porcentaje '
+                'Cada actividad aporta a una o más competencias. El porcentaje '
                 'refleja el mejor intento registrado.',
                 style: TextStyle(
                     fontSize: 13, color: Blueprint.muted, height: 1.45),
@@ -83,7 +83,7 @@ class ProgressScreen extends StatelessWidget {
                   accent: Blueprint.ok,
                   child: Text(
                     'Completaste todas las actividades con al menos 70%. '
-                    'Vuelve a los laboratorios de diseno y compara tu modelo '
+                    'Vuelve a los laboratorios de diseño y compara tu modelo '
                     'actual con el primero que hiciste.',
                     style: TextStyle(fontSize: 13.5, height: 1.5),
                   ),
@@ -164,8 +164,8 @@ class ProgressScreen extends StatelessWidget {
       builder: (ctx) => AlertDialog(
         title: const Text('Reiniciar progreso'),
         content: const Text(
-          'Se borraran los puntajes y los borradores de diagramas y consultas '
-          'guardados en este dispositivo. Esta accion no se puede deshacer.',
+          'Se borrarán los puntajes y los borradores de diagramas y consultas '
+          'guardados en este dispositivo. Esta acción no se puede deshacer.',
           style: TextStyle(fontSize: 13.5, height: 1.5),
         ),
         actions: [

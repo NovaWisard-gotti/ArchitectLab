@@ -165,8 +165,8 @@ class _ErDesignerScreenState extends State<ErDesignerScreen> {
                   TextField(
                     controller: controller,
                     decoration: const InputDecoration(
-                      labelText: 'Nombre de la relacion (un verbo)',
-                      hintText: 'matricula, contiene, atiende',
+                      labelText: 'Nombre de la relación (un verbo)',
+                      hintText: 'matrícula, contiene, atiende',
                     ),
                     onChanged: (v) => name = v,
                   ),
@@ -206,10 +206,10 @@ class _ErDesignerScreenState extends State<ErDesignerScreen> {
                     value: identifying,
                     activeColor: Blueprint.key,
                     onChanged: (v) => setSheet(() => identifying = v),
-                    title: const Text('Relacion identificadora',
+                    title: const Text('Relación identificadora',
                         style: TextStyle(fontSize: 14)),
                     subtitle: const Text(
-                        'La entidad debil completa su clave con la clave de '
+                        'La entidad débil completa su clave con la clave de '
                         'la entidad fuerte.',
                         style: TextStyle(fontSize: 12, color: Blueprint.muted)),
                   ),
@@ -373,7 +373,7 @@ class _ErDesignerScreenState extends State<ErDesignerScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SectionTitle('Revision del modelo'),
+              const SectionTitle('Revisión del modelo'),
               InfoPanel(
                 accent: Blueprint.teal,
                 child: Column(
@@ -435,7 +435,7 @@ class _ErDesignerScreenState extends State<ErDesignerScreen> {
             children: [
               const SectionTitle('Tu modelo traducido a tablas'),
               const Text(
-                'Asi quedaria tu diagrama en SQL. Las relaciones N:M y los '
+                'Así quedaría tu diagrama en SQL. Las relaciones N:M y los '
                 'atributos multivaluados se convierten en tablas propias.',
                 style: TextStyle(
                     fontSize: 13, color: Blueprint.muted, height: 1.45),
@@ -465,16 +465,16 @@ class _ErDesignerScreenState extends State<ErDesignerScreen> {
     if (!mounted) return;
     await showResultSheet(
       context,
-      title: 'Evaluacion del modelo',
+      title: 'Evaluación del modelo',
       earned: report.earned,
       possible: report.possible,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionTitle('Rubrica'),
+          const SectionTitle('Rúbrica'),
           RubricList(items: report.items),
           const SizedBox(height: 16),
-          const SectionTitle('Analisis estructural'),
+          const SectionTitle('Análisis estructural'),
           ...report.diagnostics
               .where((d) => d.severity != Severity.info)
               .map((d) => DiagnosticCard(diagnostic: d)),
@@ -496,7 +496,7 @@ class _ErDesignerScreenState extends State<ErDesignerScreen> {
   }
 
   // -------------------------------------------------------------------------
-  // Construccion
+  // Construcción
   // -------------------------------------------------------------------------
 
   @override
@@ -555,7 +555,7 @@ class _ErDesignerScreenState extends State<ErDesignerScreen> {
                   Expanded(
                     child: Text(
                       _connectFromId == null
-                          ? 'Toca la primera entidad de la relacion.'
+                          ? 'Toca la primera entidad de la relación.'
                           : 'Ahora toca la segunda entidad.',
                       style: const TextStyle(fontSize: 13),
                     ),
@@ -687,7 +687,7 @@ class _ErDesignerScreenState extends State<ErDesignerScreen> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Seleccionada: ${selected.name}. Manten pulsado para '
+                        'Seleccionada: ${selected.name}. Mantén pulsado para '
                         'editar sus atributos.',
                         style: const TextStyle(
                             fontSize: 12, color: Blueprint.muted),
@@ -719,7 +719,7 @@ class _ErDesignerScreenState extends State<ErDesignerScreen> {
                               _connectFromId = null;
                             }),
                     icon: const Icon(Icons.timeline, size: 18),
-                    label: const Text('Relacion'),
+                    label: const Text('Relación'),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -970,7 +970,7 @@ class _EntityEditorScreenState extends State<_EntityEditorScreen> {
             controller: _nameController,
             decoration: const InputDecoration(
               labelText: 'Nombre de la entidad',
-              hintText: 'Estudiante, Prestamo, Pedido',
+              hintText: 'Estudiante, Préstamo, Pedido',
             ),
             onChanged: (v) => _entity.name = v,
           ),
@@ -980,9 +980,9 @@ class _EntityEditorScreenState extends State<_EntityEditorScreen> {
             value: _entity.isWeak,
             activeColor: Blueprint.key,
             onChanged: (v) => setState(() => _entity.isWeak = v),
-            title: const Text('Entidad debil', style: TextStyle(fontSize: 14)),
+            title: const Text('Entidad débil', style: TextStyle(fontSize: 14)),
             subtitle: const Text(
-                'No se identifica por si sola: necesita la clave de otra '
+                'No se identifica por sí sola: necesita la clave de otra '
                 'entidad.',
                 style: TextStyle(fontSize: 12, color: Blueprint.muted)),
           ),
@@ -998,7 +998,7 @@ class _EntityEditorScreenState extends State<_EntityEditorScreen> {
           if (_entity.attributes.isEmpty)
             const InfoPanel(
               child: Text(
-                'Agrega primero el identificador y marcalo como clave '
+                'Agrega primero el identificador y márcalo como clave '
                 'primaria; luego los datos descriptivos.',
                 style: TextStyle(
                     fontSize: 13, color: Blueprint.muted, height: 1.45),

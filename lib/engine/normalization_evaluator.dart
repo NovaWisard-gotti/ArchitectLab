@@ -1,7 +1,7 @@
 import '../models/activity.dart';
 import 'design_advisor.dart';
 
-/// Tabla propuesta por el estudiante durante la descomposicion.
+/// Tabla propuesta por el estudiante durante la descomposición.
 class StudentTable {
   StudentTable({required this.name, Set<String>? attributes, Set<String>? pk})
       : attributes = attributes ?? <String>{},
@@ -46,18 +46,18 @@ class NormReport {
   final int earned;
   final int possible;
 
-  /// Forma normal maxima que alcanza la propuesta del estudiante.
+  /// Forma normal máxima que alcanza la propuesta del estudiante.
   final String reachedForm;
 
   double get ratio => possible == 0 ? 0 : earned / possible;
   bool get passed => ratio >= 0.7;
 }
 
-/// Evaluador de normalizacion.
+/// Evaluador de normalización.
 ///
-/// No compara solo contra una respuesta modelo: tambien verifica las
+/// No compara solo contra una respuesta modelo: también verifica las
 /// dependencias funcionales declaradas en el ejercicio, de modo que el
-/// estudiante recibe el motivo tecnico de cada violacion.
+/// estudiante recibe el motivo técnico de cada violación.
 class NormalizationEvaluator {
   static NormReport evaluate({
     required NormalizationActivity activity,
@@ -77,8 +77,8 @@ class NormalizationEvaluator {
         issues: const [
           NormIssue(
             severity: Severity.info,
-            title: 'Aun no hay tablas',
-            message: 'Crea al menos una tabla y asignale atributos.',
+            title: 'Aún no hay tablas',
+            message: 'Crea al menos una tabla y asígnale atributos.',
           )
         ],
         earned: 0,
@@ -99,7 +99,7 @@ class NormalizationEvaluator {
       issues.add(NormIssue(
         severity: Severity.error,
         title: 'Atributos sin ubicar',
-        message: 'Quedaron fuera del diseno: ${missing.join(', ')}.',
+        message: 'Quedaron fuera del diseño: ${missing.join(', ')}.',
         fix: 'Todo atributo del enunciado debe pertenecer a alguna tabla.',
       ));
     }
@@ -112,7 +112,7 @@ class NormalizationEvaluator {
           title: 'La tabla ${t.name} no tiene clave primaria',
           message: 'Sin clave no se puede evaluar si hay dependencias '
               'parciales o transitivas.',
-          fix: 'Marca como PK el atributo (o combinacion) que identifica '
+          fix: 'Marca como PK el atributo (o combinación) que identifica '
               'cada fila.',
         ));
       }
@@ -157,13 +157,13 @@ class NormalizationEvaluator {
             message: '${fd.display} parte de un atributo que no es clave, '
                 'lo que rompe la 3FN.',
             fix: 'Separa ${fd.determinant.join(', ')} y sus dependientes en '
-                'una tabla propia y deja la referencia como clave foranea.',
+                'una tabla propia y deja la referencia como clave foránea.',
           ));
         }
       }
     }
 
-    // 4. Comparacion con la descomposicion de referencia.
+    // 4. Comparación con la descomposición de referencia.
     final available = List<StudentTable>.from(usable);
     for (final expected in activity.expected) {
       final expectedAttrs =
@@ -189,7 +189,7 @@ class NormalizationEvaluator {
           label: 'Tabla ${expected.name}',
           earned: 0,
           possible: 10,
-          comment: 'No se identifico una tabla equivalente. Se esperaba una '
+          comment: 'No se identificó una tabla equivalente. Se esperaba una '
               'con ${expected.attributes.join(', ')}.',
         ));
         continue;
@@ -221,7 +221,7 @@ class NormalizationEvaluator {
         earned: attrPoints + pkPoints,
         possible: 10,
         comment: notes.isEmpty
-            ? 'Descomposicion correcta en "${best.name}".'
+            ? 'Descomposición correcta en "${best.name}".'
             : 'En "${best.name}": ${notes.join(' | ')}.',
       ));
     }
@@ -232,7 +232,7 @@ class NormalizationEvaluator {
         title: 'Tablas adicionales',
         message: 'Sobran ${available.length} tabla(s): '
             '${available.map((t) => t.name).join(', ')}.',
-        fix: 'Fragmentar de mas obliga a reconstruir la informacion con '
+        fix: 'Fragmentar de más obliga a reconstruir la información con '
             'uniones innecesarias.',
       ));
       earned = (earned - 2 * available.length).clamp(0, possible);
@@ -251,9 +251,9 @@ class NormalizationEvaluator {
     if (issues.isEmpty) {
       issues.add(const NormIssue(
         severity: Severity.praise,
-        title: 'Descomposicion consistente',
+        title: 'Descomposición consistente',
         message: 'Ninguna tabla presenta dependencias parciales ni '
-            'transitivas segun las dependencias declaradas.',
+            'transitivas según las dependencias declaradas.',
       ));
     }
 

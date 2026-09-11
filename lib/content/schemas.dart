@@ -41,16 +41,16 @@ CREATE TABLE matricula (
 )''',
     '''
 INSERT INTO facultad (id, nombre) VALUES
- (1, 'Ingenieria'),
+ (1, 'Ingeniería'),
  (2, 'Ciencias Empresariales'),
  (3, 'Ciencias de la Salud')''',
     '''
 INSERT INTO carrera (id, nombre, facultad_id) VALUES
- (1, 'Ingenieria de Sistemas', 1),
- (2, 'Ingenieria de Minas', 1),
- (3, 'Administracion', 2),
+ (1, 'Ingeniería de Sistemas', 1),
+ (2, 'Ingeniería de Minas', 1),
+ (3, 'Administración', 2),
  (4, 'Contabilidad', 2),
- (5, 'Psicologia', 3)''',
+ (5, 'Psicología', 3)''',
     '''
 INSERT INTO estudiante (id, codigo, nombre, ciclo, carrera_id) VALUES
  (1, 'S001', 'Ana Quispe', 5, 1),
@@ -61,22 +61,22 @@ INSERT INTO estudiante (id, codigo, nombre, ciclo, carrera_id) VALUES
  (6, 'S006', 'Fabio Ccahuana', 3, 2),
  (7, 'S007', 'Gabriela Soto', 5, 3),
  (8, 'S008', 'Hugo Pariona', 1, 3),
- (9, 'S009', 'Irma Huaman', 7, 4),
- (10, 'S010', 'Jorge Nunez', 5, 4),
+ (9, 'S009', 'Irma Huamán', 7, 4),
+ (10, 'S010', 'Jorge Núñez', 5, 4),
  (11, 'S011', 'Marcos Aliaga', 3, 1),
- (12, 'S012', 'Maria Torres', 5, 1)''',
+ (12, 'S012', 'María Torres', 5, 1)''',
     '''
 INSERT INTO curso (id, codigo, nombre, creditos, carrera_id) VALUES
  (1, 'BD101', 'Base de Datos I', 4, 1),
  (2, 'BD202', 'Base de Datos II', 4, 1),
- (3, 'SW110', 'Ingenieria de Software', 3, 1),
+ (3, 'SW110', 'Ingeniería de Software', 3, 1),
  (4, 'AL100', 'Algoritmos', 5, 1),
- (5, 'MN120', 'Mecanica de Rocas', 4, 2),
- (6, 'MN130', 'Ventilacion Minera', 3, 2),
- (7, 'AD100', 'Fundamentos de Administracion', 3, 3),
+ (5, 'MN120', 'Mecánica de Rocas', 4, 2),
+ (6, 'MN130', 'Ventilación Minera', 3, 2),
+ (7, 'AD100', 'Fundamentos de Administración', 3, 3),
  (8, 'CT100', 'Contabilidad General', 4, 4),
  (9, 'RD100', 'Redes de Computadoras', 2, 1),
- (10, 'ET100', 'Estadistica Aplicada', 3, 3)''',
+ (10, 'ET100', 'Estadística Aplicada', 3, 3)''',
     '''
 INSERT INTO matricula (id, estudiante_id, curso_id, periodo, nota) VALUES
  (1, 1, 1, '2025-I', 16.0),
@@ -154,7 +154,7 @@ INSERT INTO cliente (id, nombre, distrito) VALUES
  (2, 'Luis Prado', 'Carmen Alto'),
  (3, 'Nadia Ortiz', 'Huamanga'),
  (4, 'Kevin Rojas', 'San Juan Bautista'),
- (5, 'Sofia Lazo', 'Huamanga')''',
+ (5, 'Sofía Lazo', 'Huamanga')''',
     '''
 INSERT INTO restaurante (id, nombre, categoria, distrito) VALUES
  (1, 'Puka Picante', 'Regional', 'Huamanga'),
@@ -168,7 +168,7 @@ INSERT INTO plato (id, restaurante_id, nombre, precio) VALUES
  (3, 2, 'Anticucho', 22.0),
  (4, 2, 'Parrilla mixta', 45.0),
  (5, 3, 'Caldo de mondongo', 16.0),
- (6, 3, 'Chicharron', 20.0),
+ (6, 3, 'Chicharrón', 20.0),
  (7, 4, 'Ensalada andina', 14.0),
  (8, 4, 'Wrap de quinua', 17.0)''',
     '''
@@ -213,7 +213,7 @@ INSERT INTO detalle_pedido (pedido_id, plato_id, cantidad, precio_unitario) VALU
             'y detalle_pedido.';
       case 'universidad':
       default:
-        return 'Sistema academico: facultad, carrera, estudiante, curso y '
+        return 'Sistema académico: facultad, carrera, estudiante, curso y '
             'matricula.';
     }
   }

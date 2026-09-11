@@ -49,7 +49,7 @@ String labelFor(ActivityKind kind) {
     case ActivityKind.erDesign:
       return 'Diagramador';
     case ActivityKind.normalization:
-      return 'Descomposicion';
+      return 'Descomposición';
     case ActivityKind.sqlLab:
       return 'Consola SQL';
   }

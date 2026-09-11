@@ -179,7 +179,7 @@ class _SqlLabScreenState extends State<SqlLabScreen> {
       if (verdict.passed && shapeIssues.isNotEmpty) {
         verdict = SqlVerdict(
           passed: false,
-          title: 'Resultado correcto, pero no con la construccion pedida',
+          title: 'Resultado correcto, pero no con la construcción pedida',
           detail: shapeIssues.join(' '),
           hintsFailed: shapeIssues,
         );
@@ -589,7 +589,7 @@ class _ResultTable extends StatelessWidget {
     if (result.columns.isEmpty) {
       return const InfoPanel(
         child: Text(
-          'La sentencia se ejecuto sin devolver filas. Para ver datos, usa '
+          'La sentencia se ejecutó sin devolver filas. Para ver datos, usa '
           'un SELECT.',
           style: TextStyle(fontSize: 13, color: Blueprint.muted),
         ),

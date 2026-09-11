@@ -1,6 +1,6 @@
 import 'sql_engine.dart';
 
-/// Veredicto de la evaluacion automatica de una consulta.
+/// Veredicto de la evaluación automática de una consulta.
 class SqlVerdict {
   const SqlVerdict({
     required this.passed,
@@ -15,7 +15,7 @@ class SqlVerdict {
   final List<String> hintsFailed;
 }
 
-/// Comparacion de conjuntos de resultados. Es logica pura: se puede probar
+/// Comparación de conjuntos de resultados. Es lógica pura: se puede probar
 /// sin dispositivo ni base de datos.
 class ResultComparer {
   static const double tolerance = 1e-6;
@@ -35,7 +35,7 @@ class ResultComparer {
     if (student.columns.length != expected.columns.length) {
       return SqlVerdict(
         passed: false,
-        title: 'Numero de columnas distinto',
+        title: 'Número de columnas distinto',
         detail:
             'Se esperaban ${expected.columns.length} columna(s) y tu consulta '
             'devuelve ${student.columns.length}. Revisa la lista del SELECT.',
@@ -44,7 +44,7 @@ class ResultComparer {
     if (student.rows.length != expected.rows.length) {
       return SqlVerdict(
         passed: false,
-        title: 'Numero de filas distinto',
+        title: 'Número de filas distinto',
         detail:
             'Se esperaban ${expected.rows.length} fila(s) y obtuviste '
             '${student.rows.length}. Revisa el filtro WHERE, el tipo de JOIN '
@@ -67,7 +67,7 @@ class ResultComparer {
       return const SqlVerdict(
         passed: true,
         title: 'Resultado correcto',
-        detail: 'Filas, columnas y orden coinciden con la solucion esperada.',
+        detail: 'Filas, columnas y orden coinciden con la solución esperada.',
       );
     }
 
@@ -88,12 +88,12 @@ class ResultComparer {
     return const SqlVerdict(
       passed: true,
       title: 'Resultado correcto',
-      detail: 'El conjunto de filas coincide con la solucion esperada.',
+      detail: 'El conjunto de filas coincide con la solución esperada.',
     );
   }
 
-  /// Reglas de forma: obligan a practicar la construccion pedida y no solo
-  /// a llegar al numero correcto por otro camino.
+  /// Reglas de forma: obligan a practicar la construcción pedida y no solo
+  /// a llegar al número correcto por otro camino.
   static List<String> checkShape(
     String sql, {
     required List<String> mustContain,

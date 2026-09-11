@@ -1,11 +1,11 @@
 import '../models/activity.dart';
 import '../models/er_model.dart';
 
-/// Modulo 6 - Casos reales integrados.
+/// Módulo 6 - Casos reales integrados.
 final LabModule moduleCases = LabModule(
   id: 'm6',
   title: 'Casos reales',
-  subtitle: 'Modelo, normalizacion y consultas en un mismo problema',
+  subtitle: 'Modelo, normalización y consultas en un mismo problema',
   goal: 'Resolver un requerimiento completo como se hace en un proyecto: '
       'modelar, descomponer y responder preguntas de negocio.',
   activities: [
@@ -19,7 +19,7 @@ final LabModule moduleCases = LabModule(
           'restaurantes. Cada restaurante ofrece varios platos con su precio. '
           'Un cliente realiza pedidos; cada pedido corresponde a un solo '
           'restaurante y contiene varios platos, indicando la cantidad y el '
-          'precio con el que se vendio ese dia. Cada pedido entregado es '
+          'precio con el que se vendió ese día. Cada pedido entregado es '
           'asignado a un repartidor, que puede atender muchos pedidos.',
       requirements: const [
         'Modela Cliente, Restaurante, Plato, Pedido, DetallePedido y '
@@ -31,10 +31,10 @@ final LabModule moduleCases = LabModule(
       ],
       hints: const [
         'El precio del plato cambia con el tiempo: el detalle debe guardar el '
-            'precio con el que se vendio.',
-        'DetallePedido es el ejemplo tipico de entidad asociativa con datos '
+            'precio con el que se vendió.',
+        'DetallePedido es el ejemplo típico de entidad asociativa con datos '
             'propios.',
-        'Un pedido pertenece a un solo restaurante: no modeles esa relacion '
+        'Un pedido pertenece a un solo restaurante: no modeles esa relación '
             'como N:M.',
       ],
       rubric: const ErRubric(
@@ -62,7 +62,7 @@ final LabModule moduleCases = LabModule(
                   ['precio unitario', 'preciounitario', 'precio venta']),
             ],
             needsPrimaryKey: false,
-            note: 'Sin esta entidad no se puede registrar mas de un plato por '
+            note: 'Sin esta entidad no se puede registrar más de un plato por '
                 'pedido.',
           ),
           RequiredEntity(
@@ -86,7 +86,7 @@ final LabModule moduleCases = LabModule(
             toKey: 'pedido',
             fromCard: Cardinality.one,
             toCard: Cardinality.many,
-            description: 'Cada pedido se atiende en un unico restaurante.',
+            description: 'Cada pedido se atiende en un único restaurante.',
           ),
           RequiredRelation(
             fromKey: 'pedido',
@@ -113,12 +113,12 @@ final LabModule moduleCases = LabModule(
     ),
     NormalizationActivity(
       id: 'm6a2',
-      title: 'Caso: kardex de almacen',
+      title: 'Caso: kardex de almacén',
       summary: 'Tabla plana de movimientos con tres dependencias encadenadas.',
       competencies: const [Competency.normalization, Competency.management],
       minutes: 25,
-      brief: 'Un almacen registra sus movimientos en una sola tabla. Cada '
-          'fila es un producto dentro de una guia de ingreso. Descompon hasta '
+      brief: 'Un almacén registra sus movimientos en una sola tabla. Cada '
+          'fila es un producto dentro de una guía de ingreso. Descompón hasta '
           '3FN respetando las dependencias declaradas.',
       sampleRows: const [
         ['num_guia', 'fecha_guia', 'ruc_proveedor', 'razon_social',
@@ -160,7 +160,7 @@ final LabModule moduleCases = LabModule(
           attributes: ['cod_item', 'nombre_item', 'unidad'],
         ),
         ExpectedTable(
-          name: 'guia',
+          name: 'guía',
           primaryKey: ['num_guia'],
           attributes: ['num_guia', 'fecha_guia', 'ruc_proveedor'],
         ),
@@ -178,7 +178,7 @@ final LabModule moduleCases = LabModule(
       competencies: const [Competency.sql, Competency.management],
       minutes: 25,
       schemaName: 'delivery',
-      scenario: 'El area comercial pide cuatro reportes. El esquema ya esta '
+      scenario: 'El área comercial pide cuatro reportes. El esquema ya está '
           'implementado: cliente, restaurante, plato, pedido y '
           'detalle_pedido.',
       tasks: const [
@@ -191,13 +191,13 @@ final LabModule moduleCases = LabModule(
               'FROM pedido p JOIN detalle_pedido d ON d.pedido_id = p.id '
               "WHERE p.estado = 'entregado' GROUP BY p.id",
           mustContain: ['sum(', 'group by', 'where'],
-          hint: 'El total de una linea es cantidad por precio unitario.',
+          hint: 'El total de una línea es cantidad por precio unitario.',
           points: 2,
         ),
         SqlTask(
           id: 'm6a3t2',
           prompt: 'Muestra el nombre del restaurante (alias restaurante) y '
-              'cuantos pedidos entregados acumula (alias pedidos), ordenado '
+              'cuántos pedidos entregados acumula (alias pedidos), ordenado '
               'de mayor a menor y luego por nombre.',
           solution: 'SELECT r.nombre AS restaurante, '
               'COUNT(p.id) AS pedidos '
@@ -211,7 +211,7 @@ final LabModule moduleCases = LabModule(
         ),
         SqlTask(
           id: 'm6a3t3',
-          prompt: 'Identifica el plato mas vendido en unidades. Devuelve el '
+          prompt: 'Identifica el plato más vendido en unidades. Devuelve el '
               'nombre del plato y el total de unidades (alias unidades), '
               'en una sola fila.',
           solution: 'SELECT pl.nombre, SUM(d.cantidad) AS unidades '
@@ -219,19 +219,19 @@ final LabModule moduleCases = LabModule(
               'GROUP BY pl.id, pl.nombre '
               'ORDER BY unidades DESC LIMIT 1',
           mustContain: ['sum(', 'limit'],
-          hint: 'Agrupa por plato y quedate con la primera fila del orden '
+          hint: 'Agrupa por plato y quédate con la primera fila del orden '
               'descendente.',
           points: 2,
         ),
         SqlTask(
           id: 'm6a3t4',
-          prompt: 'Lista el nombre de los clientes que no tienen ningun '
+          prompt: 'Lista el nombre de los clientes que no tienen ningún '
               'pedido en estado entregado.',
           solution: 'SELECT c.nombre FROM cliente c '
               'WHERE c.id NOT IN '
               "(SELECT p.cliente_id FROM pedido p WHERE p.estado = 'entregado')",
           mustContain: ['not in'],
-          hint: 'Tambien puedes resolverlo con LEFT JOIN, pero aqui se pide '
+          hint: 'También puedes resolverlo con LEFT JOIN, pero aquí se pide '
               'practicar la subconsulta con NOT IN.',
           points: 2,
         ),
@@ -240,7 +240,7 @@ final LabModule moduleCases = LabModule(
     ConceptActivity(
       id: 'm6a4',
       title: 'Decisiones de arquitectura de datos',
-      summary: 'El criterio que se evalua en una sustentacion de proyecto.',
+      summary: 'El criterio que se evalúa en una sustentación de proyecto.',
       competencies: const [Competency.management],
       minutes: 10,
       questions: const [
@@ -250,26 +250,26 @@ final LabModule moduleCases = LabModule(
               'calculada en la tabla pedido. Esto es aceptable si:',
           choices: [
             Choice('Nunca: siempre debe calcularse al vuelo'),
-            Choice('Se documenta como desnormalizacion y se garantiza su '
-                'actualizacion junto con el detalle',
+            Choice('Se documenta como desnormalización y se garantiza su '
+                'actualización junto con el detalle',
                 correct: true,
-                why: 'Ademas, el total historico de una boleta debe '
-                    'congelarse: es un valor legal, no un calculo actual.'),
+                why: 'Además, el total histórico de una boleta debe '
+                    'congelarse: es un valor legal, no un cálculo actual.'),
             Choice('Solo en bases NoSQL'),
             Choice('Solo si la tabla tiene menos de 1000 filas'),
           ],
-          takeaway: 'Los documentos historicos guardan el valor del momento, '
+          takeaway: 'Los documentos históricos guardan el valor del momento, '
               'no el precio vigente.',
         ),
         Question(
           id: 'm6a4q2',
-          prompt: 'Migrar un cambio de esquema en produccion se hace:',
+          prompt: 'Migrar un cambio de esquema en producción se hace:',
           choices: [
             Choice('Editando las tablas a mano en el servidor'),
-            Choice('Con scripts de migracion versionados y reversibles, '
+            Choice('Con scripts de migración versionados y reversibles, '
                 'probados antes en un entorno de pruebas',
                 correct: true,
-                why: 'Las migraciones son codigo: se revisan, se versionan y '
+                why: 'Las migraciones son código: se revisan, se versionan y '
                     'se pueden revertir.'),
             Choice('Restaurando un respaldo antiguo'),
             Choice('Creando una base nueva cada vez'),
@@ -280,32 +280,32 @@ final LabModule moduleCases = LabModule(
           id: 'm6a4q3',
           prompt: 'Un respaldo sirve solo si:',
           choices: [
-            Choice('Se genera todos los dias'),
-            Choice('Se ha probado la restauracion completa al menos una vez',
+            Choice('Se genera todos los días'),
+            Choice('Se ha probado la restauración completa al menos una vez',
                 correct: true,
-                why: 'Un respaldo que nunca se restauro es una suposicion, no '
-                    'una garantia.'),
+                why: 'Un respaldo que nunca se restauró es una suposición, no '
+                    'una garantía.'),
             Choice('Se guarda en el mismo servidor'),
             Choice('Ocupa poco espacio'),
           ],
-          takeaway: 'La prueba de restauracion forma parte del plan de '
+          takeaway: 'La prueba de restauración forma parte del plan de '
               'respaldo.',
         ),
         Question(
           id: 'm6a4q4',
-          prompt: 'En la sustentacion te preguntan por que no usaste NoSQL. '
+          prompt: 'En la sustentación te preguntan por qué no usaste NoSQL. '
               'La mejor respuesta es:',
           choices: [
-            Choice('Porque SQL es mas conocido'),
+            Choice('Porque SQL es más conocido'),
             Choice('Porque el dominio exige integridad referencial, cupos y '
                 'reportes agregados, y eso lo garantiza el motor relacional',
                 correct: true,
-                why: 'La justificacion se construye desde los requisitos del '
+                why: 'La justificación se construye desde los requisitos del '
                     'dominio, no desde la preferencia personal.'),
             Choice('Porque NoSQL es inseguro'),
-            Choice('Porque el docente lo pidio asi'),
+            Choice('Porque el docente lo pidió así'),
           ],
-          takeaway: 'Toda decision tecnica se defiende con el requisito que '
+          takeaway: 'Toda decisión técnica se defiende con el requisito que '
               'la origina.',
         ),
       ],

@@ -118,7 +118,7 @@ class _NormalizationScreenState extends State<NormalizationScreen> {
                     const SizedBox(height: 6),
                     const Text(
                       'Un atributo puede repetirse en otra tabla solo cuando '
-                      'actua como clave foranea.',
+                      'actúa como clave foránea.',
                       style: TextStyle(
                           fontSize: 12.5,
                           color: Blueprint.muted,
@@ -197,7 +197,7 @@ class _NormalizationScreenState extends State<NormalizationScreen> {
     if (!mounted) return;
     await showResultSheet(
       context,
-      title: 'Descomposicion evaluada',
+      title: 'Descomposición evaluada',
       earned: report.earned,
       possible: report.possible,
       body: Column(
@@ -225,7 +225,7 @@ class _NormalizationScreenState extends State<NormalizationScreen> {
             ),
           ),
           const SizedBox(height: 16),
-          const SectionTitle('Comparacion con la descomposicion esperada'),
+          const SectionTitle('Comparación con la descomposición esperada'),
           RubricList(items: report.items),
           const SizedBox(height: 12),
           const SectionTitle('Observaciones'),
@@ -291,7 +291,7 @@ class _NormalizationScreenState extends State<NormalizationScreen> {
           if (pending.isEmpty)
             const InfoPanel(
               accent: Blueprint.ok,
-              child: Text('Todos los atributos estan asignados.',
+              child: Text('Todos los atributos están asignados.',
                   style: TextStyle(fontSize: 13, color: Blueprint.muted)),
             )
           else
@@ -309,7 +309,7 @@ class _NormalizationScreenState extends State<NormalizationScreen> {
             ),
           const SizedBox(height: 20),
           SectionTitle(
-            'Tu descomposicion',
+            'Tu descomposición',
             trailing: TextButton.icon(
               onPressed: _addTable,
               icon: const Icon(Icons.add, size: 18),
@@ -339,7 +339,7 @@ class _NormalizationScreenState extends State<NormalizationScreen> {
           child: FilledButton.icon(
             onPressed: _tables.isEmpty ? null : _evaluate,
             icon: const Icon(Icons.rule_outlined, size: 18),
-            label: const Text('Evaluar descomposicion'),
+            label: const Text('Evaluar descomposición'),
           ),
         ),
       ),

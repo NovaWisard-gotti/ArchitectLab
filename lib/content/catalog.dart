@@ -6,7 +6,7 @@ import 'module_norm.dart';
 import 'module_postgres.dart';
 import 'module_sql.dart';
 
-/// Ruta completa del laboratorio, en el orden pedagogico previsto.
+/// Ruta completa del laboratorio, en el orden pedagógico previsto.
 class Curriculum {
   static final List<LabModule> modules = [
     moduleEr,

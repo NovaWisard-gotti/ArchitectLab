@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../core/theme.dart';
 import '../models/er_model.dart';
 
-/// Geometria compartida entre el lienzo y las tarjetas de entidad.
+/// Geometría compartida entre el lienzo y las tarjetas de entidad.
 class ErLayout {
   static const double cardWidth = 186;
   static const double headerHeight = 34;
@@ -251,7 +251,7 @@ class ErEntityCard extends StatelessWidget {
                   ),
                 ),
                 if (entity.isWeak)
-                  const Text('debil',
+                  const Text('débil',
                       style: TextStyle(fontSize: 10, color: Blueprint.key)),
               ],
             ),
@@ -303,7 +303,7 @@ class ErEntityCard extends StatelessWidget {
                         if (hidden > 0)
                           SizedBox(
                             height: ErLayout.rowHeight,
-                            child: Text('+ $hidden mas',
+                            child: Text('+ $hidden más',
                                 style: const TextStyle(
                                     fontSize: 11, color: Blueprint.muted)),
                           ),

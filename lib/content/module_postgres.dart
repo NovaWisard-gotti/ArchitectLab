@@ -1,12 +1,12 @@
 import '../models/activity.dart';
 
-/// Modulo 4 - PostgreSQL en produccion.
+/// Módulo 4 - PostgreSQL en producción.
 final LabModule modulePostgres = LabModule(
   id: 'm4',
   title: 'PostgreSQL',
-  subtitle: 'Del ejercicio al motor de produccion',
-  goal: 'Elegir tipos, restricciones e indices con criterio, y entender que '
-      'garantiza una transaccion.',
+  subtitle: 'Del ejercicio al motor de producción',
+  goal: 'Elegir tipos, restricciones e índices con criterio, y entender qué '
+      'garantiza una transacción.',
   activities: [
     ConceptActivity(
       id: 'm4a1',
@@ -18,7 +18,7 @@ final LabModule modulePostgres = LabModule(
         Question(
           id: 'm4a1q1',
           context: 'Vas a guardar el monto de una factura.',
-          prompt: 'Que tipo eliges en PostgreSQL?',
+          prompt: '¿Qué tipo eliges en PostgreSQL?',
           choices: [
             Choice('FLOAT, porque acepta decimales'),
             Choice('NUMERIC(10,2), porque representa decimales exactos',
@@ -39,7 +39,7 @@ final LabModule modulePostgres = LabModule(
             Choice('id SERIAL PRIMARY KEY'),
             Choice('id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY',
                 correct: true,
-                why: 'IDENTITY es el estandar SQL, evita los problemas de '
+                why: 'IDENTITY es el estándar SQL, evita los problemas de '
                     'permisos y propiedad de la secuencia que arrastra SERIAL.'),
             Choice('id INTEGER AUTOINCREMENT'),
             Choice('id UUID DEFAULT random()'),
@@ -49,14 +49,14 @@ final LabModule modulePostgres = LabModule(
         ),
         Question(
           id: 'm4a1q3',
-          context: 'La aplicacion se usa en varias zonas horarias.',
-          prompt: 'Que tipo usas para la fecha y hora de creacion?',
+          context: 'La aplicación se usa en varias zonas horarias.',
+          prompt: '¿Qué tipo usas para la fecha y hora de creación?',
           choices: [
             Choice('TIMESTAMP sin zona horaria'),
             Choice('TIMESTAMPTZ, que normaliza a UTC y convierte al leer',
                 correct: true,
                 why: 'Sin zona horaria, el mismo instante se interpreta '
-                    'distinto segun el servidor que lo lea.'),
+                    'distinto según el servidor que lo lea.'),
             Choice('TEXT con formato dd/mm/aaaa'),
             Choice('DATE, porque la hora no importa'),
           ],
@@ -66,22 +66,22 @@ final LabModule modulePostgres = LabModule(
         Question(
           id: 'm4a1q4',
           prompt: 'Quieres impedir que se registre una nota fuera del rango '
-              '0 a 20. La forma mas robusta es:',
+              '0 a 20. La forma más robusta es:',
           choices: [
-            Choice('Validar solo en la aplicacion movil'),
-            Choice('Una restriccion CHECK (nota BETWEEN 0 AND 20) en la tabla',
+            Choice('Validar solo en la aplicación móvil'),
+            Choice('Una restricción CHECK (nota BETWEEN 0 AND 20) en la tabla',
                 correct: true,
-                why: 'La restriccion protege el dato aunque entre por otra '
-                    'aplicacion, por un script o por consola.'),
+                why: 'La restricción protege el dato aunque entre por otra '
+                    'aplicación, por un script o por consola.'),
             Choice('Un trigger que corrija el valor en silencio'),
-            Choice('Un indice unico sobre nota'),
+            Choice('Un índice único sobre nota'),
           ],
           takeaway: 'La integridad que vive en la base sobrevive al cambio de '
               'aplicaciones.',
         ),
         Question(
           id: 'm4a1q5',
-          prompt: 'Cuando conviene usar una columna JSONB en lugar de tablas '
+          prompt: '¿Cuándo conviene usar una columna JSONB en lugar de tablas '
               'normalizadas?',
           choices: [
             Choice('Siempre, porque evita hacer JOIN'),
@@ -99,142 +99,142 @@ final LabModule modulePostgres = LabModule(
     ),
     ConceptActivity(
       id: 'm4a2',
-      title: 'Indices y rendimiento',
-      summary: 'Por que un indice acelera lecturas y encarece escrituras.',
+      title: 'Índices y rendimiento',
+      summary: 'Por qué un índice acelera lecturas y encarece escrituras.',
       competencies: const [Competency.sql, Competency.management],
       minutes: 10,
       questions: const [
         Question(
           id: 'm4a2q1',
-          prompt: 'Un indice B-tree sobre matricula(estudiante_id) ayuda '
+          prompt: 'Un índice B-tree sobre matricula(estudiante_id) ayuda '
               'sobre todo a:',
           choices: [
-            Choice('Insertar filas mas rapido'),
+            Choice('Insertar filas más rápido'),
             Choice('Filtrar y unir por estudiante_id sin recorrer toda la '
                 'tabla', correct: true,
-                why: 'El indice permite ubicar directamente las filas '
+                why: 'El índice permite ubicar directamente las filas '
                     'candidatas en lugar de leer la tabla completa.'),
-            Choice('Reducir el tamano de la base'),
+            Choice('Reducir el tamaño de la base'),
             Choice('Evitar valores nulos'),
           ],
-          takeaway: 'Los indices se disenan mirando las consultas frecuentes, '
+          takeaway: 'Los índices se diseñan mirando las consultas frecuentes, '
               'no las tablas.',
         ),
         Question(
           id: 'm4a2q2',
-          prompt: 'Costo real de agregar indices a una tabla muy escrita:',
+          prompt: 'Costo real de agregar índices a una tabla muy escrita:',
           choices: [
-            Choice('Ninguno: los indices son gratis'),
-            Choice('Cada INSERT, UPDATE y DELETE debe mantener tambien el '
-                'indice, y ocupa espacio adicional', correct: true,
-                why: 'Por eso una tabla con diez indices puede volverse lenta '
+            Choice('Ninguno: los índices son gratis'),
+            Choice('Cada INSERT, UPDATE y DELETE debe mantener también el '
+                'índice, y ocupa espacio adicional', correct: true,
+                why: 'Por eso una tabla con diez índices puede volverse lenta '
                     'para escribir.'),
             Choice('Solo aumenta el uso de memoria'),
             Choice('Obliga a normalizar hasta BCNF'),
           ],
-          takeaway: 'Indexar de mas es tan danino como no indexar.',
+          takeaway: 'Indexar de más es tan dañino como no indexar.',
         ),
         Question(
           id: 'm4a2q3',
           context: 'Consultas frecuentes: WHERE carrera_id = ? AND ciclo = ?',
-          prompt: 'Que indice compuesto conviene?',
+          prompt: '¿Qué índice compuesto conviene?',
           choices: [
             Choice('(ciclo, carrera_id), porque ciclo tiene menos valores'),
-            Choice('(carrera_id, ciclo), poniendo primero la columna mas '
+            Choice('(carrera_id, ciclo), poniendo primero la columna más '
                 'selectiva y siempre presente en el filtro',
                 correct: true,
-                why: 'Un indice compuesto se aprovecha de izquierda a '
+                why: 'Un índice compuesto se aprovecha de izquierda a '
                     'derecha: la primera columna debe ser la que casi siempre '
                     'aparece en el WHERE.'),
-            Choice('Dos indices separados siempre rinden igual'),
-            Choice('Un indice sobre todas las columnas de la tabla'),
+            Choice('Dos índices separados siempre rinden igual'),
+            Choice('Un índice sobre todas las columnas de la tabla'),
           ],
-          takeaway: 'En indices compuestos, el orden de las columnas cambia '
+          takeaway: 'En índices compuestos, el orden de las columnas cambia '
               'todo.',
         ),
         Question(
           id: 'm4a2q4',
           prompt: 'Antes de optimizar una consulta lenta, lo primero es:',
           choices: [
-            Choice('Agregar un indice por cada columna del WHERE'),
-            Choice('Leer el plan de ejecucion con EXPLAIN ANALYZE',
+            Choice('Agregar un índice por cada columna del WHERE'),
+            Choice('Leer el plan de ejecución con EXPLAIN ANALYZE',
                 correct: true,
                 why: 'El plan muestra si el motor recorre la tabla completa, '
-                    'que indice usa y donde se pierde el tiempo.'),
+                    'qué índice usa y dónde se pierde el tiempo.'),
             Choice('Aumentar la memoria del servidor'),
             Choice('Desnormalizar el modelo'),
           ],
-          takeaway: 'Medir primero, cambiar despues.',
+          takeaway: 'Medir primero, cambiar después.',
         ),
       ],
     ),
     ConceptActivity(
       id: 'm4a3',
       title: 'Transacciones e integridad',
-      summary: 'Que garantiza el motor cuando algo falla a la mitad.',
+      summary: 'Qué garantiza el motor cuando algo falla a la mitad.',
       competencies: const [Competency.management],
       minutes: 10,
       questions: const [
         Question(
           id: 'm4a3q1',
-          context: 'Una matricula descuenta una vacante y crea un registro.',
+          context: 'Una matrícula descuenta una vacante y crea un registro.',
           prompt: 'Si el segundo paso falla, la atomicidad garantiza que:',
           choices: [
             Choice('El primer paso queda aplicado igual'),
             Choice('Ambos pasos se deshacen y la base vuelve al estado previo',
                 correct: true,
-                why: 'La transaccion es todo o nada: sin atomicidad quedarian '
-                    'vacantes descontadas sin matricula.'),
-            Choice('El motor reintenta automaticamente'),
+                why: 'La transacción es todo o nada: sin atomicidad quedarían '
+                    'vacantes descontadas sin matrícula.'),
+            Choice('El motor reintenta automáticamente'),
             Choice('Se guarda un registro parcial marcado como incompleto'),
           ],
-          takeaway: 'Toda operacion que toca varias tablas necesita una '
-              'transaccion.',
+          takeaway: 'Toda operación que toca varias tablas necesita una '
+              'transacción.',
         ),
         Question(
           id: 'm4a3q2',
           prompt: 'ON DELETE CASCADE en matricula.estudiante_id significa:',
           choices: [
-            Choice('Que no se puede borrar un estudiante con matriculas'),
-            Choice('Que al borrar un estudiante se borran tambien sus '
-                'matriculas', correct: true,
-                why: 'Es comodo, pero peligroso con datos historicos: borra '
-                    'informacion que quizas debia conservarse.'),
-            Choice('Que las matriculas quedan con estudiante_id nulo'),
-            Choice('Que se crea automaticamente un indice'),
+            Choice('Que no se puede borrar un estudiante con matrículas'),
+            Choice('Que al borrar un estudiante se borran también sus '
+                'matrículas', correct: true,
+                why: 'Es cómodo, pero peligroso con datos históricos: borra '
+                    'información que quizás debía conservarse.'),
+            Choice('Que las matrículas quedan con estudiante_id nulo'),
+            Choice('Que se crea automáticamente un índice'),
           ],
-          takeaway: 'Para datos historicos suele ser mejor RESTRICT o un '
-              'borrado logico.',
+          takeaway: 'Para datos históricos suele ser mejor RESTRICT o un '
+              'borrado lógico.',
         ),
         Question(
           id: 'm4a3q3',
-          prompt: 'Dos usuarios matriculan al mismo tiempo en la ultima '
-              'vacante. El riesgo tipico es:',
+          prompt: 'Dos usuarios matriculan al mismo tiempo en la última '
+              'vacante. El riesgo típico es:',
           choices: [
             Choice('Deadlock garantizado'),
-            Choice('Una condicion de carrera que deja el cupo en negativo si '
+            Choice('Una condición de carrera que deja el cupo en negativo si '
                 'no se controla la concurrencia', correct: true,
                 why: 'Ambos leen el mismo valor disponible antes de que el '
                     'otro escriba.'),
-            Choice('Perdida total de la base'),
+            Choice('Pérdida total de la base'),
             Choice('Un error de sintaxis'),
           ],
           takeaway: 'Se resuelve con transacciones, bloqueos o restricciones '
-              'que hagan imposible el estado invalido.',
+              'que hagan imposible el estado inválido.',
         ),
         Question(
           id: 'm4a3q4',
           prompt: 'La durabilidad en ACID significa que:',
           choices: [
             Choice('Los datos nunca se borran'),
-            Choice('Una vez confirmada la transaccion, el cambio sobrevive a '
-                'una caida del servidor', correct: true,
+            Choice('Una vez confirmada la transacción, el cambio sobrevive a '
+                'una caída del servidor', correct: true,
                 why: 'El motor escribe el registro de transacciones antes de '
                     'confirmar.'),
             Choice('La base soporta muchos usuarios'),
-            Choice('Las copias de seguridad son automaticas'),
+            Choice('Las copias de seguridad son automáticas'),
           ],
-          takeaway: 'Durabilidad no reemplaza a la politica de respaldos.',
+          takeaway: 'Durabilidad no reemplaza a la política de respaldos.',
         ),
       ],
     ),

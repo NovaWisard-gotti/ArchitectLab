@@ -1,17 +1,17 @@
 import '../models/activity.dart';
 import '../models/er_model.dart';
 
-/// Modulo 1 - Modelo entidad-relacion.
+/// Módulo 1 - Modelo entidad-relación.
 final LabModule moduleEr = LabModule(
   id: 'm1',
-  title: 'Modelo entidad-relacion',
+  title: 'Modelo entidad-relación',
   subtitle: 'Del enunciado al diagrama',
   goal: 'Traducir un requerimiento escrito en entidades, atributos, claves y '
       'cardinalidades defendibles.',
   activities: [
     ConceptActivity(
       id: 'm1a1',
-      title: 'Que es una entidad y que no lo es',
+      title: 'Qué es una entidad y qué no lo es',
       summary: 'Distinguir entidades, atributos y valores antes de dibujar.',
       competencies: const [Competency.modeling],
       minutes: 8,
@@ -19,30 +19,30 @@ final LabModule moduleEr = LabModule(
         Question(
           id: 'm1a1q1',
           prompt: 'Un sistema de biblioteca registra libros, autores y '
-              'prestamos. "Titulo" es:',
+              'préstamos. "Título" es:',
           choices: [
             Choice('Una entidad, porque aparece en el enunciado'),
             Choice('Un atributo de la entidad Libro',
                 correct: true,
-                why: 'No guardamos informacion adicional sobre un titulo: es '
+                why: 'No guardamos información adicional sobre un título: es '
                     'un dato que describe al libro.'),
-            Choice('Una relacion entre Libro y Autor'),
-            Choice('Una clave foranea'),
+            Choice('Una relación entre Libro y Autor'),
+            Choice('Una clave foránea'),
           ],
-          takeaway: 'Regla practica: si necesitas guardar datos *sobre* ese '
+          takeaway: 'Regla práctica: si necesitas guardar datos *sobre* ese '
               'concepto, es entidad; si solo describe a otro, es atributo.',
         ),
         Question(
           id: 'm1a1q2',
-          prompt: 'Un estudiante puede registrar varios numeros de telefono. '
-              'Modelar "telefono" como un atributo de Estudiante:',
+          prompt: 'Un estudiante puede registrar varios números de teléfono. '
+              'Modelar "teléfono" como un atributo de Estudiante:',
           choices: [
             Choice('Es correcto si se separan con comas'),
             Choice('Rompe la primera forma normal al pasar a tablas',
                 correct: true,
-                why: 'Una celda debe contener un solo valor atomico. Varios '
-                    'telefonos en un campo impiden buscar, contar y validar.'),
-            Choice('Es correcto porque el telefono describe al estudiante'),
+                why: 'Una celda debe contener un solo valor atómico. Varios '
+                    'teléfonos en un campo impiden buscar, contar y validar.'),
+            Choice('Es correcto porque el teléfono describe al estudiante'),
             Choice('Obliga a usar una base NoSQL'),
           ],
           takeaway: 'Un atributo multivaluado se extrae a una entidad propia '
@@ -50,23 +50,23 @@ final LabModule moduleEr = LabModule(
         ),
         Question(
           id: 'm1a1q3',
-          prompt: 'Cual es la mejor clave primaria para Estudiante en una '
+          prompt: '¿Cuál es la mejor clave primaria para Estudiante en una '
               'universidad?',
           choices: [
             Choice('El correo institucional'),
             Choice('El nombre completo'),
-            Choice('El codigo de estudiante emitido por la universidad',
+            Choice('El código de estudiante emitido por la universidad',
                 correct: true,
-                why: 'Es unico, obligatorio y estable durante toda la vida '
-                    'academica del alumno.'),
-            Choice('El numero de celular'),
+                why: 'Es único, obligatorio y estable durante toda la vida '
+                    'académica del alumno.'),
+            Choice('El número de celular'),
           ],
-          takeaway: 'Una clave primaria debe ser unica, no nula, minima y '
+          takeaway: 'Una clave primaria debe ser única, no nula, mínima y '
               'estable en el tiempo.',
         ),
         Question(
           id: 'm1a1q4',
-          prompt: 'Una entidad debil es aquella que:',
+          prompt: 'Una entidad débil es aquella que:',
           choices: [
             Choice('Tiene pocos atributos'),
             Choice('No se usa con frecuencia en el sistema'),
@@ -74,69 +74,69 @@ final LabModule moduleEr = LabModule(
                 'No puede identificarse sin la clave de otra entidad de la '
                 'que depende',
                 correct: true,
-                why: 'Su identificacion es parcial: necesita la clave de la '
+                why: 'Su identificación es parcial: necesita la clave de la '
                     'entidad fuerte para completarse.'),
             Choice('Solo existe en bases NoSQL'),
           ],
-          takeaway: 'Ejemplo tipico: Detalle de pedido no existe sin Pedido.',
+          takeaway: 'Ejemplo típico: Detalle de pedido no existe sin Pedido.',
         ),
         Question(
           id: 'm1a1q5',
-          prompt: 'En el modelo relacional, una relacion N:M entre Estudiante '
+          prompt: 'En el modelo relacional, una relación N:M entre Estudiante '
               'y Curso se implementa:',
           choices: [
             Choice('Repitiendo la columna curso_id en Estudiante'),
             Choice('Con una tabla asociativa que contiene ambas claves '
-                'foraneas', correct: true,
-                why: 'Es la unica forma de representar muchas combinaciones '
+                'foráneas', correct: true,
+                why: 'Es la única forma de representar muchas combinaciones '
                     'sin duplicar filas ni columnas.'),
-            Choice('Con una clave foranea en cada una de las dos tablas'),
+            Choice('Con una clave foránea en cada una de las dos tablas'),
             Choice('Guardando una lista de cursos en un campo de texto'),
           ],
-          takeaway: 'Si esa relacion tiene datos propios (nota, periodo), la '
+          takeaway: 'Si esa relación tiene datos propios (nota, periodo), la '
               'tabla asociativa se convierte en una entidad con nombre propio.',
         ),
         Question(
           id: 'm1a1q6',
-          prompt: 'En una relacion 1:N entre Carrera y Estudiante, la clave '
-              'foranea se coloca en:',
+          prompt: 'En una relación 1:N entre Carrera y Estudiante, la clave '
+              'foránea se coloca en:',
           choices: [
             Choice('Carrera, porque es la entidad principal'),
-            Choice('Estudiante, el lado N de la relacion',
+            Choice('Estudiante, el lado N de la relación',
                 correct: true,
-                why: 'Cada estudiante pertenece a una sola carrera, asi que el '
+                why: 'Cada estudiante pertenece a una sola carrera, así que el '
                     'valor cabe en una columna.'),
             Choice('Una tercera tabla intermedia'),
             Choice('Ambas tablas, para acelerar las consultas'),
           ],
-          takeaway: 'La clave foranea siempre viaja al lado "muchos".',
+          takeaway: 'La clave foránea siempre viaja al lado "muchos".',
         ),
       ],
     ),
     ErDesignActivity(
       id: 'm1a2',
       title: 'Laboratorio: biblioteca universitaria',
-      summary: 'Primer modelo completo con una relacion N:M y datos propios.',
+      summary: 'Primer modelo completo con una relación N:M y datos propios.',
       competencies: const [Competency.modeling],
       minutes: 20,
       brief: 'La biblioteca de la universidad necesita controlar sus '
-          'prestamos. Cada libro tiene un ISBN, titulo y ano de edicion, y '
+          'préstamos. Cada libro tiene un ISBN, título y año de edición, y '
           'pertenece a una sola editorial. Un libro puede tener varios autores '
           'y un autor escribe varios libros. Los estudiantes, identificados '
-          'por su codigo, solicitan prestamos; cada prestamo corresponde a un '
-          'estudiante y registra fecha de salida y fecha de devolucion.',
+          'por su código, solicitan préstamos; cada préstamo corresponde a un '
+          'estudiante y registra fecha de salida y fecha de devolución.',
       requirements: const [
-        'Modela Libro, Autor, Editorial, Estudiante y Prestamo.',
+        'Modela Libro, Autor, Editorial, Estudiante y Préstamo.',
         'Un libro pertenece a una editorial; una editorial publica muchos '
             'libros.',
         'Libro y Autor se relacionan N:M.',
-        'Un estudiante genera muchos prestamos; cada prestamo es de un solo '
+        'Un estudiante genera muchos préstamos; cada préstamo es de un solo '
             'estudiante.',
-        'Un prestamo corresponde a un libro.',
+        'Un préstamo corresponde a un libro.',
       ],
       hints: const [
         'Subraya los sustantivos del enunciado: son candidatos a entidad.',
-        'Las fechas de salida y devolucion describen al prestamo, no al libro.',
+        'Las fechas de salida y devolución describen al préstamo, no al libro.',
         'Si un autor puede escribir varios libros y un libro tener varios '
             'autores, ninguna de las dos tablas puede guardar la referencia.',
       ],
@@ -149,7 +149,7 @@ final LabModule moduleEr = LabModule(
               RequiredAttribute(['isbn'], mustBePk: true),
               RequiredAttribute(['titulo']),
             ],
-            note: 'Es el objeto central del prestamo.',
+            note: 'Es el objeto central del préstamo.',
           ),
           RequiredEntity(
             key: 'autor',
@@ -160,7 +160,7 @@ final LabModule moduleEr = LabModule(
             key: 'editorial',
             aliases: ['Editorial'],
             note: 'Si la editorial fuera solo un texto dentro de Libro, se '
-                'repetiria en cada ejemplar.',
+                'repetiría en cada ejemplar.',
           ),
           RequiredEntity(
             key: 'estudiante',
@@ -191,48 +191,48 @@ final LabModule moduleEr = LabModule(
             fromCard: Cardinality.many,
             toCard: Cardinality.many,
             points: 4,
-            description: 'Esta relacion se convertira en tabla asociativa.',
+            description: 'Esta relación se convertirá en tabla asociativa.',
           ),
           RequiredRelation(
             fromKey: 'estudiante',
             toKey: 'prestamo',
             fromCard: Cardinality.one,
             toCard: Cardinality.many,
-            description: 'Un estudiante puede tener muchos prestamos.',
+            description: 'Un estudiante puede tener muchos préstamos.',
           ),
           RequiredRelation(
             fromKey: 'libro',
             toKey: 'prestamo',
             fromCard: Cardinality.one,
             toCard: Cardinality.many,
-            description: 'Cada prestamo corresponde a un libro.',
+            description: 'Cada préstamo corresponde a un libro.',
           ),
         ],
       ),
     ),
     ErDesignActivity(
       id: 'm1a3',
-      title: 'Laboratorio: clinica veterinaria',
-      summary: 'Entidad debil, relacion identificadora y atributos de relacion.',
+      title: 'Laboratorio: clínica veterinaria',
+      summary: 'Entidad débil, relación identificadora y atributos de relación.',
       competencies: const [Competency.modeling],
       minutes: 22,
-      brief: 'Una clinica veterinaria atiende mascotas. Cada duenio, '
+      brief: 'Una clínica veterinaria atiende mascotas. Cada dueño, '
           'identificado por su DNI, puede registrar varias mascotas, y cada '
-          'mascota pertenece a un solo duenio. La mascota se identifica por un '
-          'numero correlativo dentro de la ficha del duenio, por lo que no '
+          'mascota pertenece a un solo dueño. La mascota se identifica por un '
+          'número correlativo dentro de la ficha del dueño, por lo que no '
           'tiene identificador propio. Cada mascota recibe consultas atendidas '
           'por un veterinario; en la consulta se registra fecha, motivo y '
-          'diagnostico. Un veterinario atiende muchas consultas.',
+          'diagnóstico. Un veterinario atiende muchas consultas.',
       requirements: const [
-        'Modela Duenio, Mascota, Consulta y Veterinario.',
-        'Mascota es una entidad debil que depende de Duenio.',
-        'La relacion Duenio - Mascota debe marcarse como identificadora.',
+        'Modela Dueño, Mascota, Consulta y Veterinario.',
+        'Mascota es una entidad débil que depende de Dueño.',
+        'La relación Dueño - Mascota debe marcarse como identificadora.',
         'Una consulta pertenece a una mascota y a un veterinario.',
       ],
       hints: const [
-        'Marca Mascota como debil en su ficha de edicion.',
-        'La relacion identificadora se activa al editar la relacion.',
-        'Fecha, motivo y diagnostico describen a la consulta.',
+        'Marca Mascota como débil en su ficha de edición.',
+        'La relación identificadora se activa al editar la relación.',
+        'Fecha, motivo y diagnóstico describen a la consulta.',
       ],
       rubric: const ErRubric(
         entities: [
@@ -246,7 +246,7 @@ final LabModule moduleEr = LabModule(
             aliases: ['Mascota'],
             needsPrimaryKey: false,
             attributes: [RequiredAttribute(['nombre'])],
-            note: 'Debe existir como entidad debil.',
+            note: 'Debe existir como entidad débil.',
           ),
           RequiredEntity(
             key: 'consulta',
@@ -269,7 +269,7 @@ final LabModule moduleEr = LabModule(
             toCard: Cardinality.many,
             points: 4,
             description: 'Debe ser identificadora: la mascota no existe sin '
-                'su duenio.',
+                'su dueño.',
           ),
           RequiredRelation(
             fromKey: 'mascota',
@@ -288,30 +288,30 @@ final LabModule moduleEr = LabModule(
     ),
     ConceptActivity(
       id: 'm1a4',
-      title: 'Cardinalidad y participacion',
-      summary: 'Decidir el numero correcto antes de escribir una sola tabla.',
+      title: 'Cardinalidad y participación',
+      summary: 'Decidir el número correcto antes de escribir una sola tabla.',
       competencies: const [Competency.modeling, Competency.management],
       minutes: 9,
       questions: const [
         Question(
           id: 'm1a4q1',
-          prompt: 'Participacion total de Prestamo en la relacion con Libro '
+          prompt: 'Participación total de Préstamo en la relación con Libro '
               'significa que:',
           choices: [
             Choice('Todos los libros deben estar prestados'),
-            Choice('Ningun prestamo puede existir sin un libro asociado',
+            Choice('Ningún préstamo puede existir sin un libro asociado',
                 correct: true,
-                why: 'La participacion total obliga a que cada instancia de '
-                    'esa entidad participe en la relacion.'),
-            Choice('La relacion es N:M'),
-            Choice('El prestamo necesita clave compuesta'),
+                why: 'La participación total obliga a que cada instancia de '
+                    'esa entidad participe en la relación.'),
+            Choice('La relación es N:M'),
+            Choice('El préstamo necesita clave compuesta'),
           ],
-          takeaway: 'En tablas, la participacion total se traduce en una '
-              'clave foranea NOT NULL.',
+          takeaway: 'En tablas, la participación total se traduce en una '
+              'clave foránea NOT NULL.',
         ),
         Question(
           id: 'm1a4q2',
-          prompt: 'Una relacion 1:1 entre Empleado y Credencial normalmente:',
+          prompt: 'Una relación 1:1 entre Empleado y Credencial normalmente:',
           choices: [
             Choice('Se resuelve fusionando ambas en una sola tabla, salvo '
                 'que tengan ciclos de vida o accesos distintos',
@@ -323,7 +323,7 @@ final LabModule moduleEr = LabModule(
             Choice('Se implementa con dos claves primarias iguales en tablas '
                 'separadas obligatoriamente'),
           ],
-          takeaway: 'Separar 1:1 es una decision de diseno, no una regla.',
+          takeaway: 'Separar 1:1 es una decisión de diseño, no una regla.',
         ),
         Question(
           id: 'm1a4q3',
@@ -331,14 +331,14 @@ final LabModule moduleEr = LabModule(
           choices: [
             Choice('La tabla Estudiante'),
             Choice('La tabla Curso'),
-            Choice('La tabla asociativa Matricula',
+            Choice('La tabla asociativa Matrícula',
                 correct: true,
                 why: 'La nota no depende solo del estudiante ni solo del '
-                    'curso: depende de la combinacion de ambos.'),
-            Choice('Una tabla de configuracion'),
+                    'curso: depende de la combinación de ambos.'),
+            Choice('Una tabla de configuración'),
           ],
-          takeaway: 'Los atributos de una relacion N:M viven en la tabla que '
-              'representa esa relacion.',
+          takeaway: 'Los atributos de una relación N:M viven en la tabla que '
+              'representa esa relación.',
         ),
         Question(
           id: 'm1a4q4',
@@ -346,30 +346,30 @@ final LabModule moduleEr = LabModule(
               'como:',
           choices: [
             Choice('Dos tablas: Empleado y Supervisor'),
-            Choice('Una relacion recursiva sobre Empleado con una clave '
-                'foranea supervisor_id', correct: true,
+            Choice('Una relación recursiva sobre Empleado con una clave '
+                'foránea supervisor_id', correct: true,
                 why: 'Supervisor y supervisado son el mismo tipo de objeto, '
-                    'con roles distintos dentro de la misma relacion.'),
-            Choice('Una relacion N:M obligatoria'),
-            Choice('Una entidad debil'),
+                    'con roles distintos dentro de la misma relación.'),
+            Choice('Una relación N:M obligatoria'),
+            Choice('Una entidad débil'),
           ],
-          takeaway: 'Nombrar los roles evita ambiguedad en relaciones '
+          takeaway: 'Nombrar los roles evita ambigüedad en relaciones '
               'recursivas.',
         ),
         Question(
           id: 'm1a4q5',
           prompt: 'Un modelo tiene 14 entidades y una de ellas no participa '
-              'en ninguna relacion. Lo mas probable es que:',
+              'en ninguna relación. Lo más probable es que:',
           choices: [
-            Choice('El modelo esta bien: no toda entidad se relaciona'),
-            Choice('Falta una relacion o esa entidad no pertenece al alcance '
+            Choice('El modelo está bien: no toda entidad se relaciona'),
+            Choice('Falta una relación o esa entidad no pertenece al alcance '
                 'del sistema', correct: true,
                 why: 'Los datos que no se pueden cruzar con nada rara vez '
                     'responden una pregunta del negocio.'),
             Choice('Se necesita normalizar hasta 3FN'),
             Choice('Hay que convertir esa entidad en atributo multivaluado'),
           ],
-          takeaway: 'Una entidad aislada es una senal de alcance mal definido.',
+          takeaway: 'Una entidad aislada es una señal de alcance mal definido.',
         ),
       ],
     ),

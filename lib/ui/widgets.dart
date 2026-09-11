@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../core/theme.dart';
 import '../engine/design_advisor.dart';
 
-/// Barra de progreso plana, con lectura numerica al costado.
+/// Barra de progreso plana, con lectura numérica al costado.
 class ProgressBar extends StatelessWidget {
   const ProgressBar({
     super.key,
@@ -279,7 +279,7 @@ class RubricList extends StatelessWidget {
   }
 }
 
-/// Hoja inferior reutilizable para resultados de evaluacion.
+/// Hoja inferior reutilizable para resultados de evaluación.
 Future<void> showResultSheet(
   BuildContext context, {
   required String title,
@@ -345,8 +345,8 @@ Future<void> showResultSheet(
                 const SizedBox(height: 6),
                 Text(
                   passed
-                      ? 'Actividad superada. El puntaje quedo guardado.'
-                      : 'Aun no alcanzas el 70% necesario. Corrige y vuelve a '
+                      ? 'Actividad superada. El puntaje quedó guardado.'
+                      : 'Aún no alcanzas el 70% necesario. Corrige y vuelve a '
                           'evaluar: se conserva tu mejor intento.',
                   style: const TextStyle(
                       fontSize: 12.5, color: Blueprint.muted, height: 1.4),

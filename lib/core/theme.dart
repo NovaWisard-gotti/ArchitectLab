@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 /// Identidad visual: "blueprint de base de datos", sobre papel claro.
-/// Fondo tipo papel de plano, superficies tipo ficha tecnica, dorado
-/// reservado exclusivamente para claves y acentos de correccion.
+/// Fondo tipo papel de plano, superficies tipo ficha técnica, dorado
+/// reservado exclusivamente para claves y acentos de corrección.
 /// Esta paleta es fija: no cambia con el modo claro/oscuro del sistema.
 class Blueprint {
   static const ink = Color(0xFFF2F5F9);

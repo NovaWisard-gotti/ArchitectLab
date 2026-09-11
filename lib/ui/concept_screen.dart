@@ -5,7 +5,7 @@ import '../core/theme.dart';
 import '../models/activity.dart';
 import 'widgets.dart';
 
-/// Actividad de criterio: una pregunta a la vez, con explicacion inmediata.
+/// Actividad de criterio: una pregunta a la vez, con explicación inmediata.
 class ConceptScreen extends StatefulWidget {
   const ConceptScreen({super.key, required this.activity});
 
@@ -66,7 +66,7 @@ class _ConceptScreenState extends State<ConceptScreen> {
           }).toList(),
         ),
         footnote: 'Estas ideas se vuelven a usar en los laboratorios de '
-            'diseno y en la consola SQL.',
+            'diseño y en la consola SQL.',
       );
       if (!mounted) return;
       Navigator.of(context).pop();

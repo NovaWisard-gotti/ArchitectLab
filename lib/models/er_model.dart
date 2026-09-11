@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-/// Naturaleza de un atributo dentro del modelo entidad-relacion.
+/// Naturaleza de un atributo dentro del modelo entidad-relación.
 enum AttrKind { normal, primaryKey, foreignKey, multivalued, derived }
 
 extension AttrKindLabel on AttrKind {
@@ -11,7 +11,7 @@ extension AttrKindLabel on AttrKind {
       case AttrKind.primaryKey:
         return 'Clave primaria';
       case AttrKind.foreignKey:
-        return 'Clave foranea';
+        return 'Clave foránea';
       case AttrKind.multivalued:
         return 'Multivaluado';
       case AttrKind.derived:
@@ -224,7 +224,7 @@ class ErModel {
             .toList(),
       );
 
-  /// Traduccion didactica del modelo ER a esquema relacional (DDL).
+  /// Traducción didáctica del modelo ER a esquema relacional (DDL).
   String toDdl() {
     final buffer = StringBuffer();
     for (final e in entities) {
@@ -263,7 +263,7 @@ class ErModel {
       final b = entityById(r.toId);
       if (a == null || b == null) continue;
       final table = _snake(r.name.isEmpty ? '${a.name}_${b.name}' : r.name);
-      buffer.writeln('-- Relacion N:M convertida en tabla asociativa');
+      buffer.writeln('-- Relación N:M convertida en tabla asociativa');
       buffer.writeln('CREATE TABLE $table (');
       buffer.writeln('  ${_snake(a.name)}_id INTEGER NOT NULL,');
       buffer.writeln('  ${_snake(b.name)}_id INTEGER NOT NULL,');
@@ -275,7 +275,7 @@ class ErModel {
     for (final e in entities) {
       for (final a in e.attributes) {
         if (a.kind != AttrKind.multivalued) continue;
-        buffer.writeln('-- Atributo multivaluado extraido a su propia tabla');
+        buffer.writeln('-- Atributo multivaluado extraído a su propia tabla');
         buffer.writeln('CREATE TABLE ${_snake(e.name)}_${_snake(a.name)} (');
         buffer.writeln('  ${_snake(e.name)}_id INTEGER NOT NULL,');
         buffer.writeln('  ${_snake(a.name)} ${a.type} NOT NULL');

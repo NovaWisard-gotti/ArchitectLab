@@ -2,10 +2,10 @@ import 'er_model.dart';
 
 /// Competencias profesionales que declara el proyecto.
 class Competency {
-  static const modeling = 'Modelamiento entidad-relacion';
-  static const normalization = 'Normalizacion';
-  static const sql = 'Diseno y consulta SQL';
-  static const management = 'Gestion de datos';
+  static const modeling = 'Modelamiento entidad-relación';
+  static const normalization = 'Normalización';
+  static const sql = 'Diseño y consulta SQL';
+  static const management = 'Gestión de datos';
 }
 
 enum ActivityKind { concept, erDesign, normalization, sqlLab }
@@ -27,12 +27,12 @@ abstract class Activity {
 
   ActivityKind get kind;
 
-  /// Puntaje maximo de la actividad.
+  /// Puntaje máximo de la actividad.
   int get maxScore;
 }
 
 // ---------------------------------------------------------------------------
-// Actividad conceptual (opcion multiple con retroalimentacion razonada)
+// Actividad conceptual (opción múltiple con retroalimentación razonada)
 // ---------------------------------------------------------------------------
 
 class Choice {
@@ -80,7 +80,7 @@ class ConceptActivity extends Activity {
 }
 
 // ---------------------------------------------------------------------------
-// Actividad de diseno ER (rubrica automatica)
+// Actividad de diseño ER (rúbrica automática)
 // ---------------------------------------------------------------------------
 
 class RequiredAttribute {
@@ -182,7 +182,7 @@ class ErDesignActivity extends Activity {
 }
 
 // ---------------------------------------------------------------------------
-// Actividad de normalizacion
+// Actividad de normalización
 // ---------------------------------------------------------------------------
 
 class Fd {
@@ -223,7 +223,7 @@ class NormalizationActivity extends Activity {
 
   final String brief;
 
-  /// Filas de ejemplo (encabezado + datos) que evidencian las anomalias.
+  /// Filas de ejemplo (encabezado + datos) que evidencian las anomalías.
   final List<List<String>> sampleRows;
   final List<String> attributes;
   final List<Fd> fds;
@@ -258,7 +258,7 @@ class SqlTask {
   final String prompt;
 
   /// Consulta de referencia. Se ejecuta en el motor para obtener el
-  /// resultado esperado: la evaluacion nunca depende de datos escritos a mano.
+  /// resultado esperado: la evaluación nunca depende de datos escritos a mano.
   final String solution;
   final bool ordered;
   final List<String> mustContain;
@@ -297,7 +297,7 @@ class SqlLabActivity extends Activity {
 }
 
 // ---------------------------------------------------------------------------
-// Modulo
+// Módulo
 // ---------------------------------------------------------------------------
 
 class LabModule {

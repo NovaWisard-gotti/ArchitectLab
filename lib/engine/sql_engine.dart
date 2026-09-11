@@ -25,7 +25,7 @@ class SqlResult {
 class SqlEngine {
   SqlEngine(this.slot);
 
-  /// Identificador de la base fisica; permite tener la base del estudiante
+  /// Identificador de la base física; permite tener la base del estudiante
   /// y la base de referencia abiertas al mismo tiempo.
   final String slot;
 
@@ -53,11 +53,11 @@ class SqlEngine {
   }
 
   /// Ejecuta uno o varios enunciados separados por punto y coma.
-  /// Devuelve el resultado del ultimo SELECT encontrado.
+  /// Devuelve el resultado del último SELECT encontrado.
   Future<SqlResult> run(String sql) async {
     final db = _db;
     if (db == null) {
-      return SqlResult(error: 'El laboratorio aun no esta inicializado.');
+      return SqlResult(error: 'El laboratorio aún no está inicializado.');
     }
     final statements = splitStatements(sql);
     if (statements.isEmpty) {

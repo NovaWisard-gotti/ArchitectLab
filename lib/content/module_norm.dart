@@ -1,17 +1,17 @@
 import '../models/activity.dart';
 
-/// Modulo 2 - Normalizacion.
+/// Módulo 2 - Normalización.
 final LabModule moduleNorm = LabModule(
   id: 'm2',
-  title: 'Normalizacion',
+  title: 'Normalización',
   subtitle: 'Eliminar redundancia con criterio',
   goal: 'Detectar dependencias parciales y transitivas, y descomponer una '
-      'tabla sin perder informacion.',
+      'tabla sin perder información.',
   activities: [
     ConceptActivity(
       id: 'm2a1',
       title: 'Dependencias funcionales',
-      summary: 'El lenguaje con el que se justifica cada descomposicion.',
+      summary: 'El lenguaje con el que se justifica cada descomposición.',
       competencies: const [Competency.normalization],
       minutes: 9,
       questions: const [
@@ -19,8 +19,8 @@ final LabModule moduleNorm = LabModule(
           id: 'm2a1q1',
           prompt: 'La dependencia funcional dni -> nombre significa que:',
           choices: [
-            Choice('El nombre siempre es unico en la tabla'),
-            Choice('Para un mismo valor de dni existe un unico valor de '
+            Choice('El nombre siempre es único en la tabla'),
+            Choice('Para un mismo valor de dni existe un único valor de '
                 'nombre', correct: true,
                 why: 'Una dependencia funcional restringe valores, no orden '
                     'ni cantidad de filas.'),
@@ -54,7 +54,7 @@ final LabModule moduleNorm = LabModule(
             Choice('Parcial'),
             Choice('Transitiva: un atributo no clave determina a otro',
                 correct: true,
-                why: 'dni -> cod_area -> nombre_area. El nombre del area '
+                why: 'dni -> cod_area -> nombre_area. El nombre del área '
                     'depende de la clave solo de forma indirecta.'),
             Choice('Trivial'),
             Choice('Imposible en una base relacional'),
@@ -63,33 +63,33 @@ final LabModule moduleNorm = LabModule(
         ),
         Question(
           id: 'm2a1q4',
-          prompt: 'Una tabla esta en 2FN cuando:',
+          prompt: 'Una tabla está en 2FN cuando:',
           choices: [
             Choice('No tiene valores nulos'),
-            Choice('Esta en 1FN y ningun atributo no clave depende solo de '
+            Choice('Está en 1FN y ningún atributo no clave depende solo de '
                 'parte de la clave', correct: true,
                 why: 'La 2FN se ocupa exclusivamente de las dependencias '
                     'parciales.'),
             Choice('Tiene clave primaria simple'),
-            Choice('No tiene claves foraneas'),
+            Choice('No tiene claves foráneas'),
           ],
           takeaway: 'Si la clave primaria es simple, la 2FN se cumple '
-              'automaticamente.',
+              'automáticamente.',
         ),
         Question(
           id: 'm2a1q5',
           prompt: 'Diferencia principal entre 3FN y BCNF:',
           choices: [
-            Choice('BCNF exige eliminar todas las claves foraneas'),
+            Choice('BCNF exige eliminar todas las claves foráneas'),
             Choice('BCNF exige que todo determinante sea superclave, incluso '
                 'cuando el dependiente es atributo primo',
                 correct: true,
-                why: 'La 3FN tolera ese caso; BCNF no. Por eso BCNF es mas '
+                why: 'La 3FN tolera ese caso; BCNF no. Por eso BCNF es más '
                     'estricta.'),
             Choice('3FN se aplica solo a bases NoSQL'),
-            Choice('No hay diferencia practica'),
+            Choice('No hay diferencia práctica'),
           ],
-          takeaway: 'En la mayoria de sistemas academicos 3FN es suficiente; '
+          takeaway: 'En la mayoría de sistemas académicos 3FN es suficiente; '
               'BCNF importa con claves candidatas superpuestas.',
         ),
       ],
@@ -100,8 +100,8 @@ final LabModule moduleNorm = LabModule(
       summary: 'Llevar una tabla plana de ventas hasta 3FN.',
       competencies: const [Competency.normalization, Competency.management],
       minutes: 22,
-      brief: 'Una tienda registra sus ventas en una sola hoja de calculo. '
-          'Cada fila representa un producto dentro de una boleta. Descompon la '
+      brief: 'Una tienda registra sus ventas en una sola hoja de cálculo. '
+          'Cada fila representa un producto dentro de una boleta. Descompón la '
           'tabla hasta 3FN usando las dependencias funcionales declaradas.',
       sampleRows: const [
         ['num_boleta', 'fecha', 'dni_cliente', 'nombre_cliente',
@@ -161,13 +161,13 @@ final LabModule moduleNorm = LabModule(
     ),
     NormalizationActivity(
       id: 'm2a3',
-      title: 'Laboratorio: registro de matriculas',
-      summary: 'Caso academico con dependencia transitiva encadenada.',
+      title: 'Laboratorio: registro de matrículas',
+      summary: 'Caso académico con dependencia transitiva encadenada.',
       competencies: const [Competency.normalization],
       minutes: 24,
-      brief: 'La oficina academica mantiene un unico archivo de matriculas. '
-          'Cada curso tiene un docente asignado. Descompon hasta 3FN y cuida '
-          'que la clave de la tabla de matricula permita repetir el curso en '
+      brief: 'La oficina académica mantiene un único archivo de matrículas. '
+          'Cada curso tiene un docente asignado. Descompón hasta 3FN y cuida '
+          'que la clave de la tabla de matrícula permita repetir el curso en '
           'otro periodo.',
       sampleRows: const [
         ['cod_estudiante', 'nombre_estudiante', 'cod_curso', 'nombre_curso',
@@ -215,7 +215,7 @@ final LabModule moduleNorm = LabModule(
           attributes: ['cod_curso', 'nombre_curso', 'creditos', 'cod_docente'],
         ),
         ExpectedTable(
-          name: 'matricula',
+          name: 'matrícula',
           primaryKey: ['cod_estudiante', 'cod_curso', 'periodo'],
           attributes: ['cod_estudiante', 'cod_curso', 'periodo', 'nota'],
         ),
@@ -223,36 +223,36 @@ final LabModule moduleNorm = LabModule(
     ),
     ConceptActivity(
       id: 'm2a4',
-      title: 'Anomalias y desnormalizacion',
+      title: 'Anomalías y desnormalización',
       summary: 'Cuando normalizar deja de ser la respuesta correcta.',
       competencies: const [Competency.normalization, Competency.management],
       minutes: 8,
       questions: const [
         Question(
           id: 'm2a4q1',
-          prompt: 'El nombre de un cliente esta repetido en 900 filas y se '
-              'corrige solo en 300. Esta es una anomalia de:',
+          prompt: 'El nombre de un cliente está repetido en 900 filas y se '
+              'corrige solo en 300. Esta es una anomalía de:',
           choices: [
-            Choice('Insercion'),
-            Choice('Actualizacion', correct: true,
+            Choice('Inserción'),
+            Choice('Actualización', correct: true,
                 why: 'La redundancia obliga a modificar el mismo dato en '
                     'muchos lugares, y basta olvidar uno para perder '
                     'consistencia.'),
-            Choice('Eliminacion'),
+            Choice('Eliminación'),
             Choice('Concurrencia'),
           ],
-          takeaway: 'La normalizacion ataca principalmente la redundancia que '
+          takeaway: 'La normalización ataca principalmente la redundancia que '
               'produce inconsistencia.',
         ),
         Question(
           id: 'm2a4q2',
           prompt: 'No se puede registrar un producto nuevo hasta que alguien '
-              'lo compre. Esta es una anomalia de:',
+              'lo compre. Esta es una anomalía de:',
           choices: [
-            Choice('Insercion', correct: true,
+            Choice('Inserción', correct: true,
                 why: 'La estructura obliga a tener datos de venta para poder '
                     'guardar datos de producto.'),
-            Choice('Actualizacion'),
+            Choice('Actualización'),
             Choice('Lectura'),
             Choice('Integridad referencial'),
           ],
@@ -261,19 +261,19 @@ final LabModule moduleNorm = LabModule(
         Question(
           id: 'm2a4q3',
           prompt: 'Un reporte de ventas tarda demasiado por unir seis tablas. '
-              'La opcion mas razonable primero es:',
+              'La opción más razonable primero es:',
           choices: [
             Choice('Desnormalizar de inmediato uniendo las seis tablas'),
-            Choice('Revisar indices y el plan de ejecucion antes de tocar el '
+            Choice('Revisar índices y el plan de ejecución antes de tocar el '
                 'modelo', correct: true,
-                why: 'La mayoria de problemas de lentitud se resuelven con '
-                    'indices o consultas mejor escritas, sin sacrificar '
+                why: 'La mayoría de problemas de lentitud se resuelven con '
+                    'índices o consultas mejor escritas, sin sacrificar '
                     'integridad.'),
             Choice('Migrar a NoSQL'),
             Choice('Guardar el reporte en un archivo de texto'),
           ],
-          takeaway: 'Desnormalizar es una decision de rendimiento medida, no '
-              'un atajo de diseno.',
+          takeaway: 'Desnormalizar es una decisión de rendimiento medida, no '
+              'un atajo de diseño.',
         ),
         Question(
           id: 'm2a4q4',
@@ -284,7 +284,7 @@ final LabModule moduleNorm = LabModule(
             Choice('Mantener redundancia y asumir la responsabilidad de '
                 'sincronizarla', correct: true,
                 why: 'La copia duplicada debe actualizarse por trigger, '
-                    'proceso batch o codigo de aplicacion.'),
+                    'proceso batch o código de aplicación.'),
             Choice('No poder usar SQL'),
             Choice('Renunciar a las transacciones'),
           ],

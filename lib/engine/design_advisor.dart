@@ -54,10 +54,10 @@ class RubricReport {
   bool get passed => ratio >= 0.7;
 }
 
-/// Analizador estatico de modelos entidad-relacion.
+/// Analizador estático de modelos entidad-relación.
 ///
 /// No es un corrector de texto: recorre la estructura del modelo y aplica
-/// reglas de diseno que un docente revisaria a mano.
+/// reglas de diseño que un docente revisaría a mano.
 class DesignAdvisor {
   static List<Diagnostic> analyze(ErModel model) {
     final out = <Diagnostic>[];
@@ -66,10 +66,10 @@ class DesignAdvisor {
       out.add(const Diagnostic(
         rule: 'empty-model',
         severity: Severity.info,
-        title: 'El lienzo esta vacio',
+        title: 'El lienzo está vacío',
         message: 'Empieza identificando los sustantivos del enunciado: '
             'cada objeto del que necesitas guardar datos suele ser una entidad.',
-        fix: 'Agrega tu primera entidad con el boton "Entidad".',
+        fix: 'Agrega tu primera entidad con el botón "Entidad".',
       ));
       return out;
     }
@@ -85,7 +85,7 @@ class DesignAdvisor {
           severity: Severity.warning,
           title: '${e.name} no tiene atributos',
           message:
-              'Una entidad sin atributos no aporta informacion al sistema.',
+              'Una entidad sin atributos no aporta información al sistema.',
           fix: 'Define al menos su identificador y un dato descriptivo.',
           target: e.name,
         ));
@@ -97,9 +97,9 @@ class DesignAdvisor {
           severity: Severity.error,
           title: '${e.name} no tiene clave primaria',
           message: 'Sin clave primaria no se puede identificar una fila de '
-              'forma unica ni referenciarla desde otra tabla.',
+              'forma única ni referenciarla desde otra tabla.',
           fix: 'Marca un atributo como PK. Prefiere un identificador estable '
-              '(codigo o id) antes que un dato que puede cambiar.',
+              '(código o id) antes que un dato que puede cambiar.',
           target: e.name,
         ));
       }
@@ -112,7 +112,7 @@ class DesignAdvisor {
           severity: Severity.warning,
           title: 'Clave primaria muy amplia en ${e.name}',
           message: 'Una clave compuesta por ${pks.length} atributos suele '
-              'indicar que la entidad mezcla mas de un concepto.',
+              'indicar que la entidad mezcla más de un concepto.',
           fix: 'Revisa si parte de esos atributos pertenece a otra entidad.',
           target: e.name,
         ));
@@ -126,7 +126,7 @@ class DesignAdvisor {
             rule: 'duplicate-attribute',
             severity: Severity.error,
             title: 'Atributo repetido en ${e.name}',
-            message: 'El atributo "${a.name}" aparece mas de una vez.',
+            message: 'El atributo "${a.name}" aparece más de una vez.',
             fix: 'Elimina el duplicado o diferencia su nombre.',
             target: e.name,
           ));
@@ -171,7 +171,7 @@ class DesignAdvisor {
           rule: 'fat-entity',
           severity: Severity.info,
           title: '${e.name} concentra ${e.attributes.length} atributos',
-          message: 'Entidades muy anchas suelen esconder mas de un concepto.',
+          message: 'Entidades muy anchas suelen esconder más de un concepto.',
           fix: 'Verifica si hay grupos de atributos que dependen de algo '
               'distinto a la clave primaria.',
           target: e.name,
@@ -182,10 +182,10 @@ class DesignAdvisor {
         out.add(Diagnostic(
           rule: 'isolated-entity',
           severity: Severity.warning,
-          title: '${e.name} esta aislada',
-          message: 'Ninguna relacion conecta esta entidad con el resto del '
-              'modelo, asi que sus datos no se pueden cruzar.',
-          fix: 'Conectala con la entidad de la que depende o elimina la que '
+          title: '${e.name} está aislada',
+          message: 'Ninguna relación conecta esta entidad con el resto del '
+              'modelo, así que sus datos no se pueden cruzar.',
+          fix: 'Conéctala con la entidad de la que depende o elimina la que '
               'no aporta al problema.',
           target: e.name,
         ));
@@ -199,10 +199,10 @@ class DesignAdvisor {
           out.add(Diagnostic(
             rule: 'weak-without-identifying',
             severity: Severity.error,
-            title: '${e.name} es debil pero no depende de nadie',
-            message: 'Una entidad debil necesita una relacion identificadora '
+            title: '${e.name} es débil pero no depende de nadie',
+            message: 'Una entidad débil necesita una relación identificadora '
                 'con la entidad fuerte que completa su clave.',
-            fix: 'Marca la relacion correspondiente como identificadora.',
+            fix: 'Marca la relación correspondiente como identificadora.',
             target: e.name,
           ));
         }
@@ -230,9 +230,9 @@ class DesignAdvisor {
         out.add(Diagnostic(
           rule: 'unnamed-relation',
           severity: Severity.info,
-          title: 'Relacion sin nombre entre ${from.name} y ${to.name}',
-          message: 'El nombre de la relacion documenta la regla de negocio.',
-          fix: 'Usa un verbo: "matricula", "contiene", "solicita".',
+          title: 'Relación sin nombre entre ${from.name} y ${to.name}',
+          message: 'El nombre de la relación documenta la regla de negocio.',
+          fix: 'Usa un verbo: "matrícula", "contiene", "solicita".',
         ));
       }
 
@@ -240,11 +240,11 @@ class DesignAdvisor {
         out.add(Diagnostic(
           rule: 'many-to-many',
           severity: Severity.info,
-          title: 'Relacion N:M entre ${from.name} y ${to.name}',
-          message: 'Al pasar a tablas, esta relacion se convierte en una '
-              'tabla asociativa con las dos claves foraneas.',
-          fix: 'Si la relacion tiene datos propios (fecha, nota, cantidad), '
-              'modelala explicitamente como entidad asociativa.',
+          title: 'Relación N:M entre ${from.name} y ${to.name}',
+          message: 'Al pasar a tablas, esta relación se convierte en una '
+              'tabla asociativa con las dos claves foráneas.',
+          fix: 'Si la relación tiene datos propios (fecha, nota, cantidad), '
+              'modélala explícitamente como entidad asociativa.',
         ));
       }
 
@@ -252,11 +252,11 @@ class DesignAdvisor {
         out.add(Diagnostic(
           rule: 'one-to-one',
           severity: Severity.info,
-          title: 'Relacion 1:1 entre ${from.name} y ${to.name}',
+          title: 'Relación 1:1 entre ${from.name} y ${to.name}',
           message: 'Las relaciones 1:1 muchas veces se resuelven fusionando '
               'ambas entidades en una sola tabla.',
           fix: 'Mantenlas separadas solo si tienen ciclos de vida, permisos '
-              'o volumenes distintos.',
+              'o volúmenes distintos.',
         ));
       }
 
@@ -264,7 +264,7 @@ class DesignAdvisor {
         out.add(Diagnostic(
           rule: 'recursive',
           severity: Severity.info,
-          title: 'Relacion recursiva en ${from.name}',
+          title: 'Relación recursiva en ${from.name}',
           message: 'La entidad se relaciona consigo misma.',
           fix: 'Nombra los dos roles (por ejemplo, supervisor y supervisado) '
               'para que el modelo se entienda.',
@@ -285,10 +285,10 @@ class DesignAdvisor {
       out.add(Diagnostic(
         rule: 'fk-without-relation',
         severity: Severity.warning,
-        title: 'Claves foraneas sin relacion dibujada',
+        title: 'Claves foráneas sin relación dibujada',
         message: '${manualFks.join(', ')} apunta a otra tabla, pero el modelo '
-            'no muestra esa conexion.',
-        fix: 'Dibuja la relacion para que la dependencia quede documentada.',
+            'no muestra esa conexión.',
+        fix: 'Dibuja la relación para que la dependencia quede documentada.',
       ));
     }
 
@@ -300,7 +300,7 @@ class DesignAdvisor {
           severity: Severity.praise,
           title: 'Estructura sin errores graves',
           message: 'Todas las entidades tienen identificador y participan en '
-              'al menos una relacion.',
+              'al menos una relación.',
           fix: 'Revisa ahora si las cardinalidades reflejan las reglas del '
               'enunciado.',
         ),
@@ -309,7 +309,7 @@ class DesignAdvisor {
     return out;
   }
 
-  /// Evalua el modelo contra la rubrica de una actividad de diseno.
+  /// Evalúa el modelo contra la rúbrica de una actividad de diseño.
   static RubricReport evaluate(ErModel model, ErRubric rubric) {
     final diagnostics = analyze(model);
     final items = <RubricItem>[];
@@ -325,7 +325,7 @@ class DesignAdvisor {
           label: 'Entidad ${req.aliases.first}',
           earned: 0,
           possible: req.points,
-          comment: 'No se encontro. ${req.note.isEmpty ? 'Revisa el enunciado: '
+          comment: 'No se encontró. ${req.note.isEmpty ? 'Revisa el enunciado: '
               'este concepto necesita existir como entidad.' : req.note}',
         ));
       } else {
@@ -365,7 +365,7 @@ class DesignAdvisor {
           comment: found == null
               ? 'Atributo ausente.'
               : (attr.mustBePk && found.kind != AttrKind.primaryKey
-                  ? 'Existe, pero deberia ser la clave primaria.'
+                  ? 'Existe, pero debería ser la clave primaria.'
                   : 'Correcto.'),
         ));
       }
@@ -375,11 +375,11 @@ class DesignAdvisor {
       final a = matched[rel.fromKey];
       final b = matched[rel.toKey];
       var points = 0;
-      var comment = 'Faltan las entidades que participan en la relacion.';
+      var comment = 'Faltan las entidades que participan en la relación.';
       if (a != null && b != null) {
         final found = _findRelation(model, a.id, b.id);
         if (found == null) {
-          comment = 'No existe la relacion entre ${a.name} y ${b.name}. '
+          comment = 'No existe la relación entre ${a.name} y ${b.name}. '
               '${rel.description}';
         } else {
           final direct = found.fromId == a.id;
@@ -387,11 +387,11 @@ class DesignAdvisor {
           final toCard = direct ? found.toCard : found.fromCard;
           if (fromCard == rel.fromCard && toCard == rel.toCard) {
             points = rel.points;
-            comment = 'Relacion y cardinalidad correctas '
+            comment = 'Relación y cardinalidad correctas '
                 '(${rel.fromCard.symbol}:${rel.toCard.symbol}).';
           } else {
             points = (rel.points / 2).floor();
-            comment = 'La relacion existe, pero la cardinalidad esperada era '
+            comment = 'La relación existe, pero la cardinalidad esperada era '
                 '${rel.fromCard.symbol}:${rel.toCard.symbol} y modelaste '
                 '${fromCard.symbol}:${toCard.symbol}. ${rel.description}';
           }
@@ -399,7 +399,7 @@ class DesignAdvisor {
       }
       earned += points;
       items.add(RubricItem(
-        label: 'Relacion ${rel.fromKey} - ${rel.toKey}',
+        label: 'Relación ${rel.fromKey} - ${rel.toKey}',
         earned: points,
         possible: rel.points,
         comment: comment,
@@ -418,9 +418,9 @@ class DesignAdvisor {
       earned: cleanPoints,
       possible: rubric.cleanDesignPoints,
       comment: errors == 0 && warnings == 0
-          ? 'Sin errores ni advertencias en el analisis estructural.'
-          : 'El analizador encontro $errors error(es) y $warnings '
-              'advertencia(s). Revisalos en la pestana de analisis.',
+          ? 'Sin errores ni advertencias en el análisis estructural.'
+          : 'El analizador encontró $errors error(es) y $warnings '
+              'advertencia(s). Revísalos en la pestaña de análisis.',
     ));
 
     return RubricReport(
@@ -475,7 +475,7 @@ class DesignAdvisor {
     return volatiles.any((v) => normalized == v || normalized.startsWith(v));
   }
 
-  /// Normalizacion de nombres: minusculas, sin tildes, sin separadores y
+  /// Normalización de nombres: minúsculas, sin tildes, sin separadores y
   /// sin plural simple, para comparar "Estudiantes" con "estudiante".
   static String normalize(String value) {
     var v = value.trim().toLowerCase();

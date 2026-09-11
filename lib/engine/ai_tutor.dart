@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import '../models/er_model.dart';
 import 'design_advisor.dart';
 
-/// Explicacion pedagogica de un error.
+/// Explicación pedagógica de un error.
 class TutorAdvice {
   const TutorAdvice({
     required this.title,
@@ -20,11 +20,11 @@ class TutorAdvice {
   final bool remote;
 }
 
-/// Asistente de diagnostico.
+/// Asistente de diagnóstico.
 ///
 /// Capa 1 (siempre disponible, sin red): reglas deterministas que traducen
 /// el error del motor o del analizador a lenguaje de estudiante.
-/// Capa 2 (opcional): endpoint remoto de tutoria. La clave del modelo vive
+/// Capa 2 (opcional): endpoint remoto de tutoría. La clave del modelo vive
 /// en el servidor, nunca dentro del APK.
 class AiTutor {
   static const String endpoint =
@@ -32,7 +32,7 @@ class AiTutor {
 
   static bool get remoteEnabled => endpoint.isNotEmpty;
 
-  /// Traduce un error de SQLite a una explicacion accionable.
+  /// Traduce un error de SQLite a una explicación accionable.
   static TutorAdvice explainSqlError(String sql, String error) {
     final e = error.toLowerCase();
     final q = sql.toLowerCase();
@@ -41,7 +41,7 @@ class AiTutor {
       final table = _extractAfter(error, 'no such table:');
       return TutorAdvice(
         title: 'La tabla no existe',
-        explanation: 'El motor no encuentra "$table". O el nombre esta mal '
+        explanation: 'El motor no encuentra "$table". O el nombre está mal '
             'escrito, o esa tabla pertenece a otro esquema del laboratorio.',
         nextStep: 'Abre el visor de esquema y copia el nombre exacto.',
       );
@@ -59,8 +59,8 @@ class AiTutor {
       final col = _extractAfter(error, 'ambiguous column name:');
       return TutorAdvice(
         title: 'Columna ambigua',
-        explanation: '"$col" existe en mas de una tabla del JOIN, asi que el '
-            'motor no sabe cual quieres.',
+        explanation: '"$col" existe en más de una tabla del JOIN, así que el '
+            'motor no sabe cuál quieres.',
         nextStep: 'Escribe el nombre calificado, por ejemplo '
             'estudiante.$col, o usa alias de tabla.',
       );
@@ -75,9 +75,9 @@ class AiTutor {
     }
     if (e.contains('unique constraint failed')) {
       return TutorAdvice(
-        title: 'Restriccion UNIQUE violada',
+        title: 'Restricción UNIQUE violada',
         explanation: 'Intentas insertar un valor que ya existe en una columna '
-            'declarada como unica o como clave primaria.',
+            'declarada como única o como clave primaria.',
         nextStep: 'Cambia el valor duplicado o actualiza la fila existente '
             'con UPDATE.',
       );
@@ -87,7 +87,7 @@ class AiTutor {
       return TutorAdvice(
         title: 'Falta un valor obligatorio',
         explanation: 'La columna $col fue declarada NOT NULL y el INSERT no '
-            'le esta dando valor.',
+            'le está dando valor.',
         nextStep: 'Incluye esa columna en la lista del INSERT.',
       );
     }
@@ -105,18 +105,18 @@ class AiTutor {
         title: 'Tipo de dato incompatible',
         explanation: 'El valor no corresponde al tipo declarado de la columna.',
         nextStep: 'Revisa comillas: los textos van entre comillas simples, '
-            'los numeros no.',
+            'los números no.',
       );
     }
     return TutorAdvice(
       title: 'La consulta fue rechazada',
       explanation: error,
-      nextStep: 'Ejecuta primero una version mas simple (solo SELECT y FROM) '
-          'y agrega una clausula a la vez.',
+      nextStep: 'Ejecuta primero una versión más simple (solo SELECT y FROM) '
+          'y agrega una cláusula a la vez.',
     );
   }
 
-  /// Comentario global sobre un modelo ER, priorizando el error mas grave.
+  /// Comentario global sobre un modelo ER, priorizando el error más grave.
   static TutorAdvice reviewDesign(ErModel model) {
     final diagnostics = DesignAdvisor.analyze(model);
     final errors =
@@ -130,7 +130,7 @@ class AiTutor {
         title: first.title,
         explanation: '${first.message}\n\nHay ${errors.length} error(es) de '
             'este tipo en el modelo. Corrige primero los identificadores: '
-            'sin claves, el resto del diseno no se puede traducir a tablas.',
+            'sin claves, el resto del diseño no se puede traducir a tablas.',
         nextStep: first.fix,
       );
     }
@@ -147,15 +147,15 @@ class AiTutor {
     return TutorAdvice(
       title: 'Modelo estructuralmente correcto',
       explanation: 'Todas las entidades tienen clave primaria y participan en '
-          'el modelo. ${nm > 0 ? 'Recuerda que las $nm relacion(es) N:M se '
-              'convertiran en tablas asociativas.' : ''}',
+          'el modelo. ${nm > 0 ? 'Recuerda que las $nm relación(es) N:M se '
+              'convertirán en tablas asociativas.' : ''}',
       nextStep: 'Compara ahora cada cardinalidad con las reglas del enunciado: '
-          'ahi es donde se pierden mas puntos.',
+          'ahí es donde se pierden más puntos.',
     );
   }
 
   /// Consulta opcional al tutor remoto. Si no hay endpoint configurado o la
-  /// red falla, se devuelve null y la interfaz usa la explicacion local.
+  /// red falla, se devuelve null y la interfaz usa la explicación local.
   static Future<TutorAdvice?> askRemote({
     required String question,
     required String context,
@@ -188,21 +188,21 @@ class AiTutor {
 
   static String _syntaxHint(String q) {
     if (q.contains('group by') && !q.contains('select')) {
-      return 'Falta la clausula SELECT antes del agrupamiento.';
+      return 'Falta la cláusula SELECT antes del agrupamiento.';
     }
     if (q.contains('where') && q.contains('count(')) {
-      return 'Las funciones de agregacion no se filtran en WHERE: para eso '
-          'existe HAVING, que se aplica despues del GROUP BY.';
+      return 'Las funciones de agregación no se filtran en WHERE: para eso '
+          'existe HAVING, que se aplica después del GROUP BY.';
     }
     if (RegExp(r'\bjoin\b').hasMatch(q) && !q.contains(' on ')) {
-      return 'El JOIN necesita una condicion ON que indique por que columnas '
+      return 'El JOIN necesita una condición ON que indique por qué columnas '
           'se unen las tablas.';
     }
     if (q.contains('"') && !q.contains("'")) {
       return 'En SQLite los literales de texto van entre comillas simples; '
           'las dobles se reservan para nombres de objetos.';
     }
-    return 'Hay un token fuera de lugar: coma sobrante, parentesis sin cerrar '
+    return 'Hay un token fuera de lugar: coma sobrante, paréntesis sin cerrar '
         'o una palabra clave mal escrita.';
   }
 

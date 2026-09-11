@@ -90,7 +90,7 @@ class _Header extends StatelessWidget {
                     ),
                     SizedBox(height: 6),
                     Text(
-                      'Disena, descompon y consulta. Cada ejercicio se corrige '
+                      'Diseña, descompón y consulta. Cada ejercicio se corrige '
                       'contra la estructura, no contra un texto.',
                       style: TextStyle(
                         fontSize: 13.5,
