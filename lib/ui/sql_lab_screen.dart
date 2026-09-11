@@ -32,6 +32,7 @@ class _SqlLabScreenState extends State<SqlLabScreen> {
   int _index = 0;
   bool _busy = true;
   bool _running = false;
+  bool _schemaHighlighted = false;
   SqlResult? _result;
   SqlVerdict? _verdict;
   TutorAdvice? _advice;
@@ -86,6 +87,7 @@ class _SqlLabScreenState extends State<SqlLabScreen> {
         _busy = false;
         _editor.text = _answers[_task.id] ?? '';
       });
+      WidgetsBinding.instance.addPostFrameCallback((_) => _showSchema());
     } catch (e) {
       if (!mounted) return;
       setState(() {
@@ -215,8 +217,8 @@ class _SqlLabScreenState extends State<SqlLabScreen> {
     });
   }
 
-  Future<void> _showSchema() {
-    return showModalBottomSheet<void>(
+  Future<void> _showSchema() async {
+    await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Blueprint.ink,
@@ -257,6 +259,8 @@ class _SqlLabScreenState extends State<SqlLabScreen> {
         ),
       ),
     );
+    if (!mounted) return;
+    setState(() => _schemaHighlighted = true);
   }
 
   void _showHint() {
@@ -295,10 +299,11 @@ class _SqlLabScreenState extends State<SqlLabScreen> {
       appBar: AppBar(
         title: Text(widget.activity.title, style: const TextStyle(fontSize: 17)),
         actions: [
-          IconButton(
+          AttentionIconButton(
             tooltip: 'Ver esquema',
             onPressed: _showSchema,
-            icon: const Icon(Icons.table_chart_outlined),
+            icon: Icons.table_chart_outlined,
+            attention: _schemaHighlighted,
           ),
           if (_task.hint.isNotEmpty)
             IconButton(

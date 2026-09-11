@@ -24,6 +24,7 @@ class _ErDesignerScreenState extends State<ErDesignerScreen> {
   String? _selectedRelationId;
   String? _connectFromId;
   bool _connecting = false;
+  bool _briefHighlighted = false;
   double _scale = 1;
 
   String get _draftKey => 'er_${widget.activity.id}';
@@ -41,9 +42,7 @@ class _ErDesignerScreenState extends State<ErDesignerScreen> {
     } else {
       _model = ErModel();
     }
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_model.isEmpty) _showBrief();
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) => _showBrief());
   }
 
   void _persist() {
@@ -270,8 +269,8 @@ class _ErDesignerScreenState extends State<ErDesignerScreen> {
   // Paneles
   // -------------------------------------------------------------------------
 
-  Future<void> _showBrief() {
-    return showModalBottomSheet<void>(
+  Future<void> _showBrief() async {
+    await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Blueprint.ink,
@@ -326,6 +325,8 @@ class _ErDesignerScreenState extends State<ErDesignerScreen> {
         ),
       ),
     );
+    if (!mounted) return;
+    setState(() => _briefHighlighted = true);
   }
 
   Future<void> _showHints() {
@@ -505,10 +506,11 @@ class _ErDesignerScreenState extends State<ErDesignerScreen> {
       appBar: AppBar(
         title: Text(widget.activity.title, style: const TextStyle(fontSize: 17)),
         actions: [
-          IconButton(
+          AttentionIconButton(
             tooltip: 'Enunciado',
             onPressed: _showBrief,
-            icon: const Icon(Icons.description_outlined),
+            icon: Icons.description_outlined,
+            attention: _briefHighlighted,
           ),
           PopupMenuButton<String>(
             color: Blueprint.surface,

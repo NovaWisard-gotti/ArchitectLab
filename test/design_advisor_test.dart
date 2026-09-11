@@ -155,7 +155,7 @@ void main() {
       );
       final report = DesignAdvisor.evaluate(model, rubric);
       final relationItem =
-          report.items.firstWhere((i) => i.label.startsWith('Relacion'));
+          report.items.firstWhere((i) => i.label.startsWith('Relación'));
       expect(relationItem.earned, greaterThan(0));
       expect(relationItem.earned, lessThan(relationItem.possible));
     });

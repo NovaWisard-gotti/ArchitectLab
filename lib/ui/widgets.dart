@@ -50,6 +50,52 @@ class ProgressBar extends StatelessWidget {
   }
 }
 
+/// Botón de icono que queda marcado con un punto de color después de que
+/// el usuario cierra el panel que abre, para que pueda ubicarlo de nuevo
+/// fácilmente.
+class AttentionIconButton extends StatelessWidget {
+  const AttentionIconButton({
+    super.key,
+    required this.icon,
+    required this.tooltip,
+    required this.onPressed,
+    this.attention = false,
+  });
+
+  final IconData icon;
+  final String tooltip;
+  final VoidCallback onPressed;
+  final bool attention;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      tooltip: tooltip,
+      onPressed: onPressed,
+      icon: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Icon(icon, color: attention ? Blueprint.teal : null),
+          if (attention)
+            Positioned(
+              right: -2,
+              top: -2,
+              child: Container(
+                width: 9,
+                height: 9,
+                decoration: BoxDecoration(
+                  color: Blueprint.key,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Blueprint.surface, width: 1.5),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
 class SectionTitle extends StatelessWidget {
   const SectionTitle(this.text, {super.key, this.trailing});
 
